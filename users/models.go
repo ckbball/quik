@@ -172,4 +172,36 @@ func scanUserInfo(s *sql.Row) (*UserModel, error) {
 
 // --------------- DB FUNCTIONS BEGIN -------------------------------------
 
+func GetAllUsers() ([]*UserModel, error) {
+  rows, err := common.GetRows("users")
+  if err != nil {
+    return nil, err
+  }
+
+  defer rows.Close()
+
+  var users []*UserModel
+  for rows.Next() {
+    user, err := scanUsers(rows)
+    if err != nil {
+      return nil, fmt.Errorf("ERROR ---> mysql: could not read row: %v", err)
+    }
+
+    users = append(users, user)
+  }
+
+  return users, nil
+}
+
+func SaveFlight(u UserModel) error {
+
+  r, err := common.ExecAffectingOneRow("insert", "user", u.ID, u.Firstname, u.Lastname, u.Email, u.Hash, u.HasInfo)
+  if err != nil {
+    return err
+  }
+  fmt.Println("Insert user operation results: %v", r)
+
+  return nil
+}
+
 // ----------------- DB FUNCTIONS END ------------------------------
