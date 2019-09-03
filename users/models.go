@@ -73,7 +73,63 @@ func scanUsers(s *sql.Rows) (*UserModel, error) {
   return user, nil
 }
 
-func scanUsers(s *sql.Row) (*UserModel, error) {
+func scanUser(s *sql.Row) (*UserModel, error) {
+  var (
+    ID        int
+    Firstname sql.NullString
+    Lastname  sql.NullString
+    Email     sql.NullString
+    Hash      sql.NullString
+    HasInfo   sql.NullBool
+  )
+
+  if err := s.Scan(&ID, &Firstname, &Lastname, &Email, &Hash, &HasInfo); err != nil {
+    return nil, err
+  }
+
+  id := int(ID)
+
+  user := &UserModel{
+    ID:        id,
+    Firstname: Firstname.String,
+    Lastname:  Lastname.String,
+    Email:     Email.String,
+    Hash:      Hash.String,
+    HasInfo:   HasInfo.String,
+  }
+
+  return user, nil
+}
+
+func scanUserInfos(s *sql.Rows) (*UserModel, error) {
+  var (
+    ID        int
+    Firstname sql.NullString
+    Lastname  sql.NullString
+    Email     sql.NullString
+    Hash      sql.NullString
+    HasInfo   sql.NullBool
+  )
+
+  if err := s.Scan(&ID, &Firstname, &Lastname, &Email, &Hash, &HasInfo); err != nil {
+    return nil, err
+  }
+
+  id := int(ID)
+
+  user := &UserModel{
+    ID:        id,
+    Firstname: Firstname.String,
+    Lastname:  Lastname.String,
+    Email:     Email.String,
+    Hash:      Hash.String,
+    HasInfo:   HasInfo.String,
+  }
+
+  return user, nil
+}
+
+func scanUserInfo(s *sql.Row) (*UserModel, error) {
   var (
     ID        int
     Firstname sql.NullString
