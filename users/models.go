@@ -102,10 +102,21 @@ func scanUser(s *sql.Row) (*UserModel, error) {
 }
 
 func scanUserInfos(s *sql.Rows) (*UserModel, error) {
+  Status     string   // this is going to be searching, perusing, locked
+  Level      string   // this is going to be entry, mid, senior
+  Roles      []string // this is going to be backend, frontend, full stack, mobile,
+  Frameworks []string // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
+  DB         []string // this is all dbs that a user has built a project with
+  Front      []string // languages and methods for front end user has built a project with
+  Back       []string // languages and methods for backend user has built a project with
+  Extra      []string // dont know what should be here
+  DevOps     []string // CI/CD tools, other things idk
+  Cloud      []string // which cloud tools and platforms user has made a project with
+  UserId     int      // the id that this info block belongs to
   var (
-    ID        int
-    Firstname sql.NullString
-    Lastname  sql.NullString
+    UserID        int
+    Status sql.NullString
+    Level  sql.NullString
     Email     sql.NullString
     Hash      sql.NullString
     HasInfo   sql.NullBool
