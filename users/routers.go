@@ -1,7 +1,8 @@
 package users
 
 import (
-  "errors"
+  // "errors"
+  "fmt"
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
   "net/http"
@@ -15,12 +16,14 @@ func UsersRegister(router *gin.RouterGroup) {
 func UsersRegistration(c *gin.Context) {
   user := NewUserModelValidator()
   if err := user.Bind(c); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return
   }
 
+  fmt.Println("check if validator validated user: ", user.userModel)
+
   if err := SaveOne(&user.userModel); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return
   }
   c.Set("my_user_model", user.userModel)

@@ -1,0 +1,26 @@
+The backend application for Quik, the true place to find jobs and find great engineers
+Communicates as a REST-ish API to the frontend application
+uses golang, gin, mysql
+
+
+USERS
+ Register a new user(an applicant looking to get hired)
+ REQ: 
+ {
+  "user": {
+    "firstname": "",
+    "lastname": "",
+    "email": "",
+    "info": true OR false,
+    "pass": "",
+    "level": "",
+    "status": "",
+  }
+ }
+
+RES:
+{
+  "user": {},
+  "token": "",
+}
+http.StatusCode

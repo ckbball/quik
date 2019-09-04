@@ -2,9 +2,9 @@ package users
 
 import (
   "errors"
-  "fmt"
+  //"fmt"
   "github.com/ckbball/quik/common"
-  "github.com/jinzhu/gorm"
+  //"github.com/jinzhu/gorm"
   "golang.org/x/crypto/bcrypt"
 )
 
@@ -36,7 +36,7 @@ func AutoMigrate() {
   db := common.GetDB()
 
   db.AutoMigrate(&UserModel{})
-  db.AutoMigrate(&UserInfo{})
+  // db.AutoMigrate(&UserInfo{})
 }
 
 // There will be multiple relations table with id, user_id, <a field of userInfo>_id,

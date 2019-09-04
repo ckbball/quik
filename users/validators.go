@@ -1,14 +1,15 @@
 package users
 
 import (
+  "fmt"
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
 )
 
 type UserModelValidator struct {
   User struct {
-    Firstname string `json:"first" form:"firstname" binding:"exists,alphanum`
-    Lastname  string `json:"last" form:"lastname" binding:"exists,alphanum`
+    Firstname string `json:"firstname" form:"firstname" binding:"exists,alphanum`
+    Lastname  string `json:"lastname" form:"lastname" binding:"exists,alphanum`
     Email     string `json:"email" form:"email" binding:"exists,email`
     Hash      string `json:"pass" form:"password" binding:"exists,min=8,max=255`
     HasInfo   bool   `json:"info" form:"hasinfo" binding:"exists`
@@ -20,6 +21,8 @@ type UserModelValidator struct {
 
 func (self *UserModelValidator) Bind(c *gin.Context) error {
   err := common.Bind(c, self)
+
+  fmt.Println("Check if common.Bind() binded the body to User properly: ", self.User)
   if err != nil {
     return nil
   }

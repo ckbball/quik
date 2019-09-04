@@ -1,7 +1,7 @@
 package main
 
 import (
-  "fmt"
+  // "fmt"
   //"github.com/ckbball/quik/auth"
   "github.com/ckbball/quik/common"
   //"github.com/ckbball/quik/companies"
@@ -38,16 +38,16 @@ func main() {
 
   // basic authentication routes
   /*
-    {
-      basicAuth := r.Group('/')
-      basicAuth.Use(AuthenticationRequired())
-      {
-        //jobs.Register(basicAuth.Group("/jobs"))
-        //companies.Register(basicAuth.Group("/companies"))
-        //users.Register(basicAuth.Group("/users"))
-        //applications.Register(basicAuth.Group("/applications"))
-      }
-    }*/
+     {
+       basicAuth := r.Group('/')
+       basicAuth.Use(AuthenticationRequired())
+       {
+         //jobs.Register(basicAuth.Group("/jobs"))
+         //companies.Register(basicAuth.Group("/companies"))
+         //users.Register(basicAuth.Group("/users"))
+         //applications.Register(basicAuth.Group("/applications"))
+       }
+     }*/
 
   r.Run()
 
