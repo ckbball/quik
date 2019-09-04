@@ -9,12 +9,12 @@ import (
 )
 
 type UserModel struct {
-  ID        int    `json:"id" gorm:"primary_key"`
-  Firstname string `json:"first" gorm:"column:firstname"`
-  Lastname  string `json:"last" gorm:"column:lastname"`
-  Email     string `json:"email" gorm:"column:email;unique_index"`
-  Hash      string `json:"pass" gorm:"column:password;not null"`
-  HasInfo   bool   `json:"info" gorm:"column:hasinfo"`
+  ID        int    ` gorm:"primary_key"`
+  Firstname string ` gorm:"column:firstname"`
+  Lastname  string `gorm:"column:lastname"`
+  Email     string `gorm:"column:email;unique_index"`
+  Hash      string ` gorm:"column:password;not null"`
+  HasInfo   bool   ` gorm:"column:hasinfo"`
   Status    string `gorm:"column:status"` // this is going to be searching, perusing, locked
   Level     string `gorm:"column:level"`  // this is going to be entry, mid, senior
   // Info      UserInfo `json:"info"`  should this be in UserModel or should it just be a separate table that I also grab
