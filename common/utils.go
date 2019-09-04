@@ -2,8 +2,8 @@ package common
 
 import (
   "fmt"
-  "math/rand"
-  "time"
+  //"math/rand"
+  //"time"
 
   "github.com/dgrijalva/jwt-go"
   "github.com/gin-gonic/gin"
