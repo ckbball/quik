@@ -40,3 +40,44 @@ func (self *UserModelValidator) Bind(c *gin.Context) error {
   }
   return nil
 }
+
+func NewUserModelValidator() UserModelValidator {
+  userModelValidator := UserModelValidator{}
+  return userModelValidator
+}
+
+func NewUserModelValidatorFillWith(user UserModel) UserModelValidator {
+  out := NewUserModelValidator()
+  out.User.Firstname = user.Firstname
+  out.User.Lastname = user.Lastname
+  out.User.Email = user.Email
+  out.User.HasInfo = user.HasInfo
+  out.User.Hash = user.Hash
+  out.User.Status = user.Status
+  out.User.Level = user.Level
+
+  return out
+}
+
+type LoginValidator struct {
+  User struct {
+    Email string `json:"email" form:"email" binding:"exists,email`
+    Hash  string `json:"pass" form:"password" binding:"exists,min=8,max=255`
+  } `json:"user"`
+  userModel UserModel `json:"-"`
+}
+
+func (self *LoginValidator) Bind(c *gin.Context) error {
+  err := common.Bind(c, self)
+  if err != nil {
+    return err
+  }
+
+  self.userModel.Email = self.User.Email
+  return nil
+}
+
+func NewLoginValidator() LoginValidator {
+  loginValidator := LoginValidator{}
+  return loginValidator
+}
