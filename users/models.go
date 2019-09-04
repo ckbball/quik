@@ -1,20 +1,22 @@
 package users
 
 import (
-  "database/sql"
+  "errors"
+  "github.com/jinzhu/gorm"
+  "golang.org/x/crypto/bcrypt"
   "fmt"
   "github.com/ckbball/quik/common"
 )
 
 type UserModel struct {
-  ID        int    `json:"id"`
-  Firstname string `json:"first"`
-  Lastname  string `json:"last"`
-  Email     string `json:"email"`
-  Hash      string `json:"pass"`
-  HasInfo   bool   `json:"info"`
-  Status     string   // this is going to be searching, perusing, locked
-  Level      string   // this is going to be entry, mid, senior
+  ID        int    `json:"id" gorm:"primary_key"`
+  Firstname string `json:"first" gorm:"column:firstname"`
+  Lastname  string `json:"last" gorm:"column:lastname"`
+  Email     string `json:"email" gorm:"column:email;unique_index"`
+  Hash      string `json:"pass" gorm:"column:password;not null"`
+  HasInfo   bool   `json:"info" gorm:"column:hasinfo"`
+  Status     string   `gorm:"column:status"`// this is going to be searching, perusing, locked
+  Level      string   `gorm:"column:level"`// this is going to be entry, mid, senior
   // Info      UserInfo `json:"info"`  should this be in UserModel or should it just be a separate table that I also grab
 }
 
@@ -28,6 +30,13 @@ type UserInfo struct {
   DevOps     []string // CI/CD tools, other things idk
   Cloud      []string // which cloud tools and platforms user has made a project with
   ID     int      
+}
+
+func AutoMigrate() {
+  db := common.GetDB()
+
+  db.AutoMigrate(&UserModel{})
+  db.AutoMigrate(&UserInfo{})
 }
 
 // There will be multiple relations table with id, user_id, <a field of userInfo>_id, 

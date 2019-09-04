@@ -9,15 +9,21 @@ import (
   "github.com/ckbball/quik/users"
   "github.com/gin-gonic/gin"
   _ "github.com/go-sql-driver/mysql"
+  "github.com/jinzhu/gorm"
 )
+
+func Migrate(db *gorm.DB) {
+  users.AutoMigrate()
+  db.AutoMigrate(&companies.CompanyModel{})
+  db.AutoMigrate(&jobs.JobModel{})
+
+}
 
 func main() {
 
-  _, err := common.Init()
-  if err != nil {
-    fmt.Println(err)
-  }
-  defer common.Close()
+  db := common.Init()
+  Migrate(db)
+  defer db.Close()
 
   r := gin.Default()
 
@@ -38,6 +44,7 @@ func main() {
       jobs.Register(basicAuth.Group("/jobs"))
       companies.Register(basicAuth.Group("/companies"))
       users.Register(basicAuth.Group("/users"))
+      applications.Register(basicAuth.Group("/applications"))
     }
   }
 
