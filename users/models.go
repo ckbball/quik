@@ -21,7 +21,7 @@ type UserModel struct {
 }
 
 type UserInfo struct {
-  Roles      []string // this is going to be backend, frontend, full stack, mobile,
+  Roles      []string `gorm:"foreignkey:InfoID"` // this is going to be backend, frontend, full stack, mobile,
   Frameworks []string // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
   DB         []string // this is all dbs that a user has built a project with
   Front      []string // languages and methods for front end user has built a project with
@@ -30,6 +30,62 @@ type UserInfo struct {
   DevOps     []string // CI/CD tools, other things idk
   Cloud      []string // which cloud tools and platforms user has made a project with
   ID         int
+}
+
+type Role struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Framework struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type DB struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Front struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Back struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Extra struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Extra struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
+}
+
+type Cloud struct {
+  ID     int
+  Name   string
+  Years  int
+  InfoID int
 }
 
 func AutoMigrate() {
