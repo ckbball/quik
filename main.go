@@ -33,7 +33,7 @@ func main() {
   {
     // /login
     // /register
-    auth.Register(v1.Group("/auth"))
+    users.UsersRegister(v1.Group("/auth"))
   }
 
   // basic authentication routes
@@ -41,10 +41,10 @@ func main() {
     basicAuth := r.Group('/')
     basicAuth.Use(AuthenticationRequired())
     {
-      jobs.Register(basicAuth.Group("/jobs"))
-      companies.Register(basicAuth.Group("/companies"))
-      users.Register(basicAuth.Group("/users"))
-      applications.Register(basicAuth.Group("/applications"))
+      //jobs.Register(basicAuth.Group("/jobs"))
+      //companies.Register(basicAuth.Group("/companies"))
+      //users.Register(basicAuth.Group("/users"))
+      //applications.Register(basicAuth.Group("/applications"))
     }
   }
 
