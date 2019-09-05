@@ -1,0 +1,14 @@
+ROUTES:
+
+  Not Authorized routes:
+  - User Registration ---------- X
+  - User Login  ---------- x
+  - list of jobs
+  - view a specific job
+
+  Authorized Routes:
+  - User Get  ---------- Y
+  - User Update ----------
+  - User Profile Get  ----------
+  - User Profile Update ----------
+
