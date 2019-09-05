@@ -1,7 +1,7 @@
 package common
 
 import (
-  "fmt"
+  //"fmt"
   //"math/rand"
   "time"
 
@@ -27,7 +27,6 @@ func GenToken(id int) string {
 
 func Bind(c *gin.Context, obj interface{}) error {
   b := binding.Default(c.Request.Method, c.ContentType())
-  fmt.Println("printing interface passed to common.Bind() ", obj)
   return c.ShouldBindWith(obj, b)
 }
 

@@ -1,7 +1,7 @@
 package users
 
 import (
-  // "errors"
+  "errors"
   "fmt"
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
@@ -38,15 +38,18 @@ func UsersLogin(c *gin.Context) {
     return
   }
 
+  fmt.Println("Checking login validator binding: --> ", login)
+
   user, err := FindOneUser(&UserModel{Email: login.userModel.Email})
 
+  // sending error with token and pass
   if err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Email not registered  or invalid password")))
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("DB: Email not registered or invalid password")))
     return
   }
 
   if user.checkPassword(login.User.Hash) != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Email not registered  or invalid password")))
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Check: Email not registered  or invalid password")))
     return
   }
   UpdateContextUserModel(c, user.ID)

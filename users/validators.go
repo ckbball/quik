@@ -8,13 +8,14 @@ import (
 
 type UserModelValidator struct {
   User struct {
-    Firstname string `json:"firstname" form:"firstname" binding:"exists,alphanum"`
-    Lastname  string `json:"lastname" form:"lastname" binding:"exists,alphanum"`
-    Email     string `json:"email" form:"email" binding:"exists,email"`
-    Hash      string `json:"pass" form:"password" binding:"exists,min=8,max=255"`
-    HasInfo   bool   `json:"info" form:"hasinfo" binding:"exists"`
-    Status    string `json:"status" form:"status" binding:"alphanum"` // this is going to be searching, perusing, locked
-    Level     string `json:"level" form:"level" binding:"alphanum"`
+    Firstname string   `json:"firstname" form:"firstname" binding:"exists,alphanum"`
+    Lastname  string   `json:"lastname" form:"lastname" binding:"exists,alphanum"`
+    Email     string   `json:"email" form:"email" binding:"exists,email"`
+    Hash      string   `json:"pass" form:"password" binding:"exists,min=8,max=255"`
+    HasInfo   bool     `json:"info" form:"hasinfo" binding:"exists"`
+    Status    string   `json:"status" form:"status" binding:"alphanum"` // this is going to be searching, perusing, locked
+    Level     string   `json:"level" form:"level" binding:"alphanum"`
+    Info      UserInfo `json:"block" form:"block"`
   } `json:"user"`
   userModel UserModel `json:"-"`
 }
@@ -22,15 +23,17 @@ type UserModelValidator struct {
 func (self *UserModelValidator) Bind(c *gin.Context) error {
   err := common.Bind(c, self)
 
-  fmt.Println("Check if common.Bind() binded the body to User properly: ", self.User)
+  fmt.Println("/users/validators-26: Check if common.Bind() binded the body to User properly: ", self.User)
   if err != nil {
-    return nil
+    return err
   }
 
   self.userModel.Firstname = self.User.Firstname
   self.userModel.Lastname = self.User.Lastname
   self.userModel.Email = self.User.Email
   self.userModel.HasInfo = self.User.HasInfo
+
+  fmt.Println("/users/validators-36: Check if copying User to userModel correctly: ", self.userModel)
 
   if self.User.Hash != common.JWTSecretString {
     self.userModel.setPassword(self.User.Hash)
