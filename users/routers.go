@@ -16,7 +16,8 @@ func UsersRegister(router *gin.RouterGroup) {
 
 // Auth Routes
 func UserRegister(router *gin.RouterGroup) {
-  router.POST()
+  router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
+  //
 }
 
 func UsersRegistration(c *gin.Context) {
