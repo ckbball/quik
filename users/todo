@@ -5,13 +5,13 @@ legend: X - completed
 
   Not Authorized routes:
   - User Registration ---------- X
-  - User Login  ---------- x
+  - User Login  ---------- X
   - list of jobs
   - view a specific job
 
   Authorized Routes:
-  - User Get  ---------- Y
-  - User Update ----------
+  - User Get  ---------- X
+  - User Update ---------- Y
   - User Profile Get  ----------
   - User Profile Update ----------
 

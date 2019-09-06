@@ -25,7 +25,7 @@ func UserRegister(router *gin.RouterGroup) {
 func UsersRegistration(c *gin.Context) {
   user := NewUserModelValidator()
   if err := user.Bind(c); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
     return
   }
 
@@ -85,4 +85,26 @@ func UserGet(c *gin.Context) {
   UpdateContextUserModel(c, user.ID)
   serializer := UnthSerializer{c} // serializer struct for working with a different user's data.
   c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
+}
+
+// Receives the new user struct and updates the user in the db
+// PUT -
+func UserUpdate(c *gin.Context) {
+  myUser := c.MustGet("my_user_model").(UserModel)
+  user := NewUserModelValidatorFillWith(myUser)
+  if err := user.Bind(c); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
+    return
+  }
+
+  fmt.Println("check if validator validated user: ", user.userModel)
+
+  user.userModel.ID = myUserModel.ID
+  if err := myUser.Update(user.userModel); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    return
+  }
+  UpdateContextUserModel(c, myUser.ID)
+  serializer := UserSerializer{c}
+  c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
 }
