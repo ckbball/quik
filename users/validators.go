@@ -15,6 +15,7 @@ type UserModelValidator struct {
     HasInfo   bool    `json:"info" form:"hasinfo" binding:"exists"`
     Status    string  `json:"status" form:"status" binding:"alphanum"` // this is going to be searching, perusing, locked
     Level     string  `json:"level" form:"level" binding:"alphanum"`
+    Title     string  `json:"title" form:"title" binding:"alphanum"`
     Profile   Profile `json:"profile" form:"profile"`
   } `json:"user"`
   userModel UserModel `json:"-"`
@@ -44,6 +45,9 @@ func (self *UserModelValidator) Bind(c *gin.Context) error {
   if self.User.Level != "" {
     self.userModel.Level = self.User.Level
   }
+  if self.User.Title != "" {
+    self.userModel.Title = self.User.Title
+  }
   return nil
 }
 
@@ -61,6 +65,7 @@ func NewUserModelValidatorFillWith(user UserModel) UserModelValidator {
   out.User.Hash = user.Hash
   out.User.Status = user.Status
   out.User.Level = user.Level
+  out.User.Title = user.Title
 
   return out
 }

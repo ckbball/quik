@@ -15,6 +15,7 @@ type UserResponse struct {
   Email     string `json:"email"`
   Status    string `json:"status"`
   Level     string `json:"level"`
+  Title     string `json:"title"`
   Token     string `json:"token"`
 }
 
@@ -26,6 +27,7 @@ func (self *UserSerializer) Response() UserResponse {
     Email:     user.Email,
     Status:    user.Status,
     Level:     user.Level,
+    Title:     user.Title,
     Token:     common.GenToken(user.ID),
   }
 

@@ -17,7 +17,7 @@ func UsersRegister(router *gin.RouterGroup) {
 // Auth Routes
 func UserRegister(router *gin.RouterGroup) {
   router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
-  //
+  // router.POST("/0 ")
 }
 
 func UsersRegistration(c *gin.Context) {
@@ -47,7 +47,7 @@ func UsersLogin(c *gin.Context) {
 
   fmt.Println("Checking login validator binding: --> ", login)
 
-  user, err := FindOneUser(&UserModel{Email: login.userModel.Email})
+  user, err := FindOneUser(&UserModel{Email: login.userModel.Email}) //models.go function
 
   // sending error with token and pass
   if err != nil {
@@ -59,6 +59,23 @@ func UsersLogin(c *gin.Context) {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Check: Email not registered  or invalid password")))
     return
   }
+  UpdateContextUserModel(c, user.ID)
+  serializer := UserSerializer{c}
+  c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
+}
+
+// Retrieves a user instance by user_id
+func UserGet(c *gin.Context) {
+  id := c.Param("id")
+  Id, err := strconv.Atoi(id)
+
+  user, err := FindOneUser(&UserModel{ID: Id}) // models.go function
+
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("user get", errors.New("DB: Invalid Id")))
+    return
+  }
+
   UpdateContextUserModel(c, user.ID)
   serializer := UserSerializer{c}
   c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})

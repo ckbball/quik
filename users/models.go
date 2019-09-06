@@ -17,6 +17,7 @@ type UserModel struct {
   HasInfo   bool    ` gorm:"column:hasinfo"`
   Status    string  `gorm:"column:status"` // this is going to be searching, perusing, locked
   Level     string  `gorm:"column:level"`  // this is going to be entry, mid, senior
+  Title     string  `gorm:"column:title"`  // this is going to be frontend, backend, etc.
   Profile   Profile `gorm:"foreignkey:UserID"`
 }
 
