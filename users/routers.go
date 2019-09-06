@@ -14,6 +14,7 @@ func UsersRegister(router *gin.RouterGroup) {
   router.POST("/", UsersRegistration)
   router.POST("/login", UsersLogin)
   router.GET("/:id", UserGet) // have to move this to authenticated routes later
+  router.POST("", UserUpdate) // also auth'd
 }
 
 // Auth Routes
@@ -99,7 +100,7 @@ func UserUpdate(c *gin.Context) {
 
   fmt.Println("check if validator validated user: ", user.userModel)
 
-  user.userModel.ID = myUserModel.ID
+  user.userModel.ID = myUser.ID
   if err := myUser.Update(user.userModel); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return

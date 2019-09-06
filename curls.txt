@@ -19,3 +19,6 @@ password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njc3Mjg0NzEsImlkIjoxf
 
 // USER GET
 curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/1
+
+// USER UPDATE
+curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Billy", "lastname": "Bob", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "Senior", "title": "frontend", "block": {}}}' http://localhost:8080/api/auth
