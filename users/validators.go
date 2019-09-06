@@ -8,14 +8,14 @@ import (
 
 type UserModelValidator struct {
   User struct {
-    Firstname string   `json:"firstname" form:"firstname" binding:"exists,alphanum"`
-    Lastname  string   `json:"lastname" form:"lastname" binding:"exists,alphanum"`
-    Email     string   `json:"email" form:"email" binding:"exists,email"`
-    Hash      string   `json:"pass" form:"password" binding:"exists,min=8,max=255"`
-    HasInfo   bool     `json:"info" form:"hasinfo" binding:"exists"`
-    Status    string   `json:"status" form:"status" binding:"alphanum"` // this is going to be searching, perusing, locked
-    Level     string   `json:"level" form:"level" binding:"alphanum"`
-    Info      UserInfo `json:"block" form:"block"`
+    Firstname string  `json:"firstname" form:"firstname" binding:"exists,alphanum"`
+    Lastname  string  `json:"lastname" form:"lastname" binding:"exists,alphanum"`
+    Email     string  `json:"email" form:"email" binding:"exists,email"`
+    Hash      string  `json:"pass" form:"password" binding:"exists,min=8,max=255"`
+    HasInfo   bool    `json:"info" form:"hasinfo" binding:"exists"`
+    Status    string  `json:"status" form:"status" binding:"alphanum"` // this is going to be searching, perusing, locked
+    Level     string  `json:"level" form:"level" binding:"alphanum"`
+    Profile   Profile `json:"profile" form:"profile"`
   } `json:"user"`
   userModel UserModel `json:"-"`
 }

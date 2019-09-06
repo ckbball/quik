@@ -8,9 +8,15 @@ import (
   "net/http"
 )
 
+// No-Auth Routes
 func UsersRegister(router *gin.RouterGroup) {
   router.POST("/", UsersRegistration)
   router.POST("/login", UsersLogin)
+}
+
+// Auth Routes
+func UserRegister(router *gin.RouterGroup) {
+  router.POST()
 }
 
 func UsersRegistration(c *gin.Context) {

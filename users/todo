@@ -1,5 +1,8 @@
 ROUTES:
 
+legend: X - completed
+        Y - Next to do
+
   Not Authorized routes:
   - User Registration ---------- X
   - User Login  ---------- x

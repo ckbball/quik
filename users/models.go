@@ -9,19 +9,18 @@ import (
 )
 
 type UserModel struct {
-  ID        int      ` gorm:"primary_key"`
-  Firstname string   ` gorm:"column:firstname"`
-  Lastname  string   `gorm:"column:lastname"`
-  Email     string   `gorm:"column:email;unique_index"`
-  Hash      string   ` gorm:"column:password;not null"`
-  HasInfo   bool     ` gorm:"column:hasinfo"`
-  Status    string   `gorm:"column:status"` // this is going to be searching, perusing, locked
-  Level     string   `gorm:"column:level"`  // this is going to be entry, mid, senior
-  Info      UserInfo `gorm:"foreignkey:UserID"`
-  // Info      UserInfo `json:"info"`  should this be in UserModel or should it just be a separate table that I also grab
+  ID        int     ` gorm:"primary_key"`
+  Firstname string  ` gorm:"column:firstname"`
+  Lastname  string  `gorm:"column:lastname"`
+  Email     string  `gorm:"column:email;unique_index"`
+  Hash      string  ` gorm:"column:password;not null"`
+  HasInfo   bool    ` gorm:"column:hasinfo"`
+  Status    string  `gorm:"column:status"` // this is going to be searching, perusing, locked
+  Level     string  `gorm:"column:level"`  // this is going to be entry, mid, senior
+  Profile   Profile `gorm:"foreignkey:UserID"`
 }
 
-type UserInfo struct {
+type Profile struct {
   Roles      []Role      `gorm:"foreignkey:InfoID"` // this is going to be backend, frontend, full stack, mobile,
   Frameworks []Framework `gorm:"foreignkey:InfoID"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
   DB         []DB        `gorm:"foreignkey:InfoID"` // this is all dbs that a user has built a project with
@@ -94,10 +93,10 @@ func AutoMigrate() {
   db := common.GetDB()
 
   db.AutoMigrate(&UserModel{})
-  db.AutoMigrate(&UserInfo{})
+  db.AutoMigrate(&Profile{})
 }
 
-// There will be multiple relations table with id, user_id, <a field of userInfo>_id,
+// There will be multiple relations table with id, user_id, <a field of Profile>_id,
 
 // -------- HELPER FUNCTIONS BEGIN --------------------------------------
 
@@ -139,6 +138,6 @@ func (model *UserModel) Update(data interface{}) error {
 
 // func Find
 // Methods to do
-// get userInfo
-// create userinfo
-// update userinfo
+// get Profile
+// create Profile
+// update Profile
