@@ -11,7 +11,7 @@ legend: X - completed
 
   Authorized Routes:
   - User Get  ---------- X
-  - User Update ---------- Y
+  - User Update ---------- Y _ need to implement authentication first so that I can have access to my_user_model
   - User Profile Get  ----------
   - User Profile Update ----------
 

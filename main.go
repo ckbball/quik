@@ -37,17 +37,17 @@ func main() {
   }
 
   // basic authentication routes
-  /*
-     {
-       basicAuth := r.Group('/')
-       basicAuth.Use(AuthenticationRequired())
-       {
-         //jobs.Register(basicAuth.Group("/jobs"))
-         //companies.Register(basicAuth.Group("/companies"))
-         //users.Register(basicAuth.Group("/users"))
-         //applications.Register(basicAuth.Group("/applications"))
-       }
-     }*/
+
+  {
+    basicAuth := r.Group('/')
+    basicAuth.Use(AuthenticationRequired())
+    {
+      //jobs.Register(basicAuth.Group("/jobs"))
+      //companies.Register(basicAuth.Group("/companies"))
+      users.Register(basicAuth.Group("/users"))
+      //applications.Register(basicAuth.Group("/applications"))
+    }
+  }
 
   r.Run()
 

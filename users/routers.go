@@ -14,13 +14,13 @@ func UsersRegister(router *gin.RouterGroup) {
   router.POST("/", UsersRegistration)
   router.POST("/login", UsersLogin)
   router.GET("/:id", UserGet) // have to move this to authenticated routes later
-  router.POST("", UserUpdate) // also auth'd
+  // router.POST("", UserUpdate) // also auth'd
 }
 
 // Auth Routes
-func UserRegister(router *gin.RouterGroup) {
-  router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
-  // router.POST("/0 ")
+func Register(router *gin.RouterGroup) {
+  // router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
+  router.POST("", UserUpdate)
 }
 
 func UsersRegistration(c *gin.Context) {
