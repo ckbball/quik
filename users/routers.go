@@ -6,12 +6,14 @@ import (
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
   "net/http"
+  "strconv"
 )
 
 // No-Auth Routes
 func UsersRegister(router *gin.RouterGroup) {
   router.POST("/", UsersRegistration)
   router.POST("/login", UsersLogin)
+  router.GET("/:id", UserGet) // have to move this to authenticated routes later
 }
 
 // Auth Routes
@@ -68,6 +70,10 @@ func UsersLogin(c *gin.Context) {
 func UserGet(c *gin.Context) {
   id := c.Param("id")
   Id, err := strconv.Atoi(id)
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("user get", errors.New("DB: Invalid Id")))
+    return
+  }
 
   user, err := FindOneUser(&UserModel{ID: Id}) // models.go function
 
@@ -77,6 +83,6 @@ func UserGet(c *gin.Context) {
   }
 
   UpdateContextUserModel(c, user.ID)
-  serializer := UserSerializer{c}
+  serializer := UnthSerializer{c} // serializer struct for working with a different user's data.
   c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }

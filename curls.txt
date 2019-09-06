@@ -17,3 +17,5 @@ curl --request POST --header "Content-Type: application/json" --write-out "%{htt
 email: American@fly.com
 password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njc3Mjg0NzEsImlkIjoxfQ.9IeDwYWHIlbSfW-LP3P9KlgMc4ek-6Z5x_PBWyS2nUY
 
+// USER GET
+curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/1
