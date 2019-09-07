@@ -6,6 +6,7 @@ import (
   "github.com/dgrijalva/jwt-go/request"
   "github.com/gin-gonic/gin"
   "net/http"
+  "strings"
 )
 
 func UpdateContextUserModel(c *gin.Context, my_user_id int) {
@@ -31,7 +32,7 @@ func AuthMiddleware(auto401 bool) gin.HandlerFunc {
       return
     }
     if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-      my_user_id := uint(claims["id"].(float))
+      my_user_id := uint(claims["id"].(float64))
       UpdateContextUserModel(c, my_user_id)
     }
   }
