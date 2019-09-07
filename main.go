@@ -39,7 +39,7 @@ func main() {
   // basic authentication routes
 
   {
-    basicAuth := r.Group("/")
+    basicAuth := r.Group("/api")
     basicAuth.Use(users.AuthMiddleware(true))
     {
       //jobs.Register(basicAuth.Group("/jobs"))
