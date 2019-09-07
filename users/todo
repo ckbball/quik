@@ -11,7 +11,7 @@ legend: X - completed
 
   Authorized Routes:
   - User Get  ---------- X
-  - User Update ---------- Y _ need to implement authentication first so that I can have access to my_user_model
-  - User Profile Get  ----------
+  - User Update ---------- X _ need to implement authentication first so that I can have access to my_user_model  X  // currently authenticate token placed in header as "Authorization: <token>"  after updating a new token will be generated so have to handle that maybe?
+  - User Profile Get  ---------- Y
   - User Profile Update ----------
 
