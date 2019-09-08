@@ -96,16 +96,16 @@ func NewLoginValidator() LoginValidator {
 // profile validator goes down here
 type ProfileValidator struct {
   Profile struct {
-    Roles      []Roles      `json:"roles" form:"roles"`
-    Frameworks []Frameworks `json:"frameworks" form:"frameworks"`
-    DB         []DB         `json:"db" form:"db"`
-    Front      []Front      `json:"front" form:"front"`
-    Back       []Back       `json:"back" form:"back"`
-    Extra      []Extra      `json:"extra" form:"extra"`
-    DevOps     []DevOps     `json:"devops" form:"devops"`
-    Cloud      []Cloud      `json:"cloud" form:"cloud"`
-    ID         int          `json:"id" form:"id" `
-    UserID     int          `json:"userid" form:"userid"`
+    Roles      []Role      `json:"roles" form:"roles"`
+    Frameworks []Framework `json:"frameworks" form:"frameworks"`
+    DB         []DB        `json:"db" form:"db"`
+    Front      []Front     `json:"front" form:"front"`
+    Back       []Back      `json:"back" form:"back"`
+    Extra      []Extra     `json:"extra" form:"extra"`
+    DevOps     []DevOp     `json:"devops" form:"devops"`
+    Cloud      []Cloud     `json:"cloud" form:"cloud"`
+    ID         int         `json:"id" form:"id" `
+    UserID     int         `json:"userid" form:"userid"`
   } `json: "profile"`
   profileModel Profile `json: "-"`
 }
