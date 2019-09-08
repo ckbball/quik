@@ -63,3 +63,38 @@ func (self *UnthSerializer) Response() UnthResponse {
   }
   return out
 }
+
+type ProfileSerializer struct {
+  c *gin.Context
+}
+
+type ProfileResponse struct {
+  Roles      []Role      `json: "roles"`      // this is going to be backend, frontend, full stack, mobile,
+  Frameworks []Framework `json: "frameworks"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
+  DB         []DB        `json: "db"`         // this is all dbs that a user has built a project with
+  Front      []Front     `json: "front"`      // languages and methods for front end user has built a project with
+  Back       []Back      `json: "back"`       // languages and methods for backend user has built a project with
+  Extra      []Extra     `json: "extra"`      // dont know what should be here
+  DevOps     []Devops    `json: "devops"`     // CI/CD tools, other things idk
+  Cloud      []Cloud     `json: "cloud"`      // which cloud tools and platforms user has made a project with
+  ID         int         `json: "id"`
+  UserID     int         `json: "userid"`
+}
+
+func (self *ProfileSerializer) Response() ProfileResponse {
+  user := self.c.MustGet("my_user_model").(UserModel)
+  out := ProfileResponse{
+    Roles:      user.Profile.Roles,
+    Frameworks: user.Profile.Frameworks,
+    DB:         user.Profile.DB,
+    Front:      user.Profile.Front,
+    Back:       user.Profile.Back,
+    Extra:      user.Profile.Extra,
+    DevOps:     user.Profile.DevOps,
+    Cloud:      user.Profile.Cloud,
+    ID:         user.Profile.ID,
+    UserID:     user.Profile.UserID,
+  }
+
+  return out
+}
