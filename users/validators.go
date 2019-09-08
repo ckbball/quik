@@ -109,3 +109,26 @@ type ProfileValidator struct {
   } `json: "profile"`
   profileModel Profile `json: "-"`
 }
+
+func (self *ProfileValidator) Bind(c *gin.Context) error {
+  err := common.Bind(c, self)
+
+  fmt.Println("/users/validators-116: Check if common.Bind() binded the body to Profile properly: ", self.Profile)
+  if err != nil {
+    return err
+  }
+
+  self.profileModel.Roles = self.Profile.Roles
+  self.profileModel.Frameworks = self.Profile.Frameworks
+  self.profileModel.DB = self.Profile.DB
+  self.profileModel.Back = self.Profile.Back
+  self.profileModel.Extra = self.Profile.Extra
+  self.profileModel.DevOps = self.Profile.DevOps
+  self.profileModel.Clound = self.Profile.Clound
+  self.profileModel.Front = self.Profile.Front
+  self.profileModel.ID = self.Profile.ID
+  self.profileModel.UserID = self.Profile.UserID
+
+  fmt.Println("/users/validators-126: Check if copying Profile to profileModel correctly: ", self.profileModel)
+  return nil
+}
