@@ -21,7 +21,7 @@ func Register(router *gin.RouterGroup) {
   // router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
   router.POST("", UserUpdate)
   router.GET("/profiles/:id", UserInfoGet)
-  // router.POST("/profiles", UserInfoUpdate)
+  router.POST("/profiles", UserInfoCreate)
 }
 
 func UsersRegistration(c *gin.Context) {
