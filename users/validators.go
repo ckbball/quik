@@ -132,3 +132,8 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
   fmt.Println("/users/validators-126: Check if copying Profile to profileModel correctly: ", self.profileModel)
   return nil
 }
+
+func NewProfileValidator() ProfileValidator {
+  profileValidator := ProfileValidator{}
+  return profileValidator
+}
