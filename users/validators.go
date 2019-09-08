@@ -92,3 +92,5 @@ func NewLoginValidator() LoginValidator {
   loginValidator := LoginValidator{}
   return loginValidator
 }
+
+// profile validator goes down here
