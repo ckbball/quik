@@ -134,6 +134,23 @@ func UserInfoGet(c *gin.Context) {
   c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
 }
 
-func UserInfoUpdate(c *gin.Context) {
+func UserInfoCreate(c *gin.Context) {
+  // validator
+  var profile = NewProfileValidator()
 
+  //bind
+  if err := profile.Bind(c); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
+    return
+  }
+
+  fmt.Println("check if validator validated profile: ", profile.profileModel)
+
+  if err := SaveOne(&profile.profileModel); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    return
+  }
+  c.Set("my_profile_model", profile.profileModel)
+  serializer := ProfileSerializer{c}
+  c.JSON(http.StatusCreated, gin.H{"profile": serializer.Response()})
 }
