@@ -14,13 +14,14 @@ func UsersRegister(router *gin.RouterGroup) {
   router.POST("/", UsersRegistration)
   router.POST("/login", UsersLogin)
   router.GET("/:id", UserGet) // have to move this to authenticated routes later
-  // router.POST("", UserUpdate) // also auth'd
 }
 
 // Auth Routes
 func Register(router *gin.RouterGroup) {
   // router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
   router.POST("", UserUpdate)
+  router.GET("/profiles/:id", UserInfoGet)
+  // router.POST("/profiles", UserInfoUpdate)
 }
 
 func UsersRegistration(c *gin.Context) {
@@ -108,4 +109,30 @@ func UserUpdate(c *gin.Context) {
   UpdateContextUserModel(c, myUser.ID)
   serializer := UserSerializer{c}
   c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+}
+
+// Get a specific user's info
+func UserInfoGet(c *gin.Context) {
+  id := c.Param("id")
+  Id, err := strconv.Atoi(id)
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))
+    fmt.Println(err)
+    return
+  }
+
+  user, err := FindOneProfile(&Profile{UserID: Id}) // models.go function
+
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))
+    fmt.Println(err)
+    return
+  }
+
+  serializer := ProfileSerializer{c} // serializer struct for working with a different user's data.
+  c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
+}
+
+func UserInfoUpdate(c *gin.Context) {
+
 }

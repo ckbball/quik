@@ -125,6 +125,13 @@ func FindOneUser(condition interface{}) (UserModel, error) {
   return model, err
 }
 
+func FindOneProfile(condition interface{}) (Profile, error) {
+  db := common.GetDB()
+  var model Profile
+  err := db.Where(condition).First(&model).Error
+  return model, err
+}
+
 func SaveOne(data interface{}) error {
   db := common.GetDB()
   err := db.Save(data).Error
