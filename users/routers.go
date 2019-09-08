@@ -129,7 +129,7 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  UpdateContextProfile(c, user)
+  UpdateContextProfile(c, user.ID)
   serializer := ProfileSerializer{c} // serializer struct for working with a user's profile.
   c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
 }

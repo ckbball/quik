@@ -15,7 +15,7 @@ curl --request POST --header "Content-Type: application/json" --write-out "%{htt
 curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"email": "American@fly.com", "pass": "please10"}}' http://localhost:8080/api/auth/login
 
 email: American@fly.com
-password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njc5MDc2MDQsImlkIjoxfQ.lpeUFju0z0R6YQIdtG8h7IGp1rWIdTXXE_q0lWZ8uPY
+password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNTI5NzYsImlkIjoxfQ.cNJS7cQMRwyXKgq6mwSlNH29XY6Xz0kJaTykPPXdtQo
 
 // USER GET
 curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/1
@@ -24,3 +24,4 @@ curl --request GET --header "Content-Type: application/json" --write-out "%{http
 curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njc5MDc2MDQsImlkIjoxfQ.lpeUFju0z0R6YQIdtG8h7IGp1rWIdTXXE_q0lWZ8uPY" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Billy", "lastname": "Bob", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "Senior", "title": "frontend", "block": {}}}' http://localhost:8080/api/users
 
 // USER PROFILE GET
+curl --request GET --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNTI5NzYsImlkIjoxfQ.cNJS7cQMRwyXKgq6mwSlNH29XY6Xz0kJaTykPPXdtQo" --write-out "%{http_code}\n" http://localhost:8080/api/users/profiles/1
