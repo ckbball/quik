@@ -22,72 +22,72 @@ type UserModel struct {
 }
 
 type Profile struct {
-  Roles      []Role      `gorm:"foreignkey:InfoID"` // this is going to be backend, frontend, full stack, mobile,
-  Frameworks []Framework `gorm:"foreignkey:InfoID"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
-  DB         []DB        `gorm:"foreignkey:InfoID"` // this is all dbs that a user has built a project with
-  Front      []Front     `gorm:"foreignkey:InfoID"` // languages and methods for front end user has built a project with
-  Back       []Back      `gorm:"foreignkey:InfoID"` // languages and methods for backend user has built a project with
-  Extra      []Extra     `gorm:"foreignkey:InfoID"` // dont know what should be here
-  DevOps     []Devops    `gorm:"foreignkey:InfoID"` // CI/CD tools, other things idk
-  Cloud      []Cloud     `gorm:"foreignkey:InfoID"` // which cloud tools and platforms user has made a project with
-  ID         int
-  UserID     int
+  Roles      []Role      `gorm:"foreignkey:InfoID;column:roles"`      // this is going to be backend, frontend, full stack, mobile,
+  Frameworks []Framework `gorm:"foreignkey:InfoID;column:frameworks"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
+  DB         []DB        `gorm:"foreignkey:InfoID;column:db"`         // this is all dbs that a user has built a project with
+  Front      []Front     `gorm:"foreignkey:InfoID;column:front"`      // languages and methods for front end user has built a project with
+  Back       []Back      `gorm:"foreignkey:InfoID;column:back"`       // languages and methods for backend user has built a project with
+  Extra      []Extra     `gorm:"foreignkey:InfoID;column:extra"`      // dont know what should be here
+  DevOps     []Devops    `gorm:"foreignkey:InfoID;column:devops"`     // CI/CD tools, other things idk
+  Cloud      []Cloud     `gorm:"foreignkey:InfoID;column:cloud"`      // which cloud tools and platforms user has made a project with
+  ID         int         ` gorm:"primary_key`
+  UserID     int         ` gorm:"column:userid"`
 }
 
 type Role struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Framework struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type DB struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Front struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Back struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Extra struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Devops struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 type Cloud struct {
-  ID     int
-  Name   string
-  Years  int
-  InfoID int
+  ID     int    ` gorm:"primary_key"`
+  Name   string `json: "name" gorm:"column:name"`
+  Years  int    `json: "years" gorm:"column:years"`
+  InfoID int    `gorm:"column:infoid"`
 }
 
 func AutoMigrate() {
@@ -95,6 +95,14 @@ func AutoMigrate() {
 
   db.AutoMigrate(&UserModel{})
   db.AutoMigrate(&Profile{})
+  db.AutoMigrate(&Role{})
+  db.AutoMigrate(&Framework{})
+  db.AutoMigrate(&DB{})
+  db.AutoMigrate(&Front{})
+  db.AutoMigrate(&Back{})
+  db.AutoMigrate(&Extra{})
+  db.AutoMigrate(&Devops{})
+  db.AutoMigrate(&Cloud{})
 }
 
 // There will be multiple relations table with id, user_id, <a field of Profile>_id,

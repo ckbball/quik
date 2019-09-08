@@ -102,7 +102,7 @@ type ProfileValidator struct {
     Front      []Front     `json:"front" form:"front"`
     Back       []Back      `json:"back" form:"back"`
     Extra      []Extra     `json:"extra" form:"extra"`
-    DevOps     []DevOp     `json:"devops" form:"devops"`
+    DevOps     []Devops    `json:"devops" form:"devops"`
     Cloud      []Cloud     `json:"cloud" form:"cloud"`
     ID         int         `json:"id" form:"id" `
     UserID     int         `json:"userid" form:"userid"`
@@ -124,7 +124,7 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
   self.profileModel.Back = self.Profile.Back
   self.profileModel.Extra = self.Profile.Extra
   self.profileModel.DevOps = self.Profile.DevOps
-  self.profileModel.Clound = self.Profile.Clound
+  self.profileModel.Cloud = self.Profile.Cloud
   self.profileModel.Front = self.Profile.Front
   self.profileModel.ID = self.Profile.ID
   self.profileModel.UserID = self.Profile.UserID
