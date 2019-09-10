@@ -121,10 +121,22 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  user, err := FindOneProfile(&Profile{UserModelID: Id}) // models.go function
+  profile, err := FindOneProfile(&Profile{UserModelID: Id}) // models.go function
+  // to get profile we have to go to each field and get all that belong to profile.id
+  err1 := profile.FillProfile(profile.ID)
+  if err1 != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("profile fill", err1))
+    fmt.Println(err1)
+    return
+  }
+
+  // check if fillprofile() in models.go worked properly
+  fmt.Println()
+  fmt.Println(profile.Roles)
 
   fmt.Println()
-  fmt.Println("GET - /profiles/:id - testing to see if we got user: ", user)
+  fmt.Println("GET - /profiles/:id - testing to see if we got profile: ", profile)
+  fmt.Println()
 
   if err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))
@@ -132,7 +144,12 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  UpdateContextProfile(c, user.ID)
+  UpdateContextProfile(c, profile.ID)
+  // test context profile
+  fmt.Println()
+  fmt.Println("CONTEXT PROFILE: ", c.MustGet("my_profile_model").(Profile))
+  fmt.Println()
+
   serializer := ProfileSerializer{c} // serializer struct for working with a user's profile.
   c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
 }
