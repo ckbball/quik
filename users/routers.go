@@ -121,7 +121,7 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  user, err := FindOneProfile(&Profile{UserID: Id}) // models.go function
+  user, err := FindOneProfile(&Profile{UserModelID: Id}) // models.go function
 
   if err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))
@@ -144,11 +144,11 @@ func UserInfoCreate(c *gin.Context) {
     return
   }
   /*
-    user, err := c.MustGet("my_user_model").(UserModel)
-    if !err {
-      fmt.Println("POST - /profile : error in getting user, ", err)
-    }
-    fmt.Println("got user")*/
+     user, err := c.MustGet("my_user_model").(UserModel)
+     if !err {
+       fmt.Println("POST - /profile : error in getting user, ", err)
+     }
+     fmt.Println("got user")*/
 
   // check if user already has profile. if yes return error. if no continue
   /*

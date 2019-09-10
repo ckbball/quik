@@ -97,14 +97,15 @@ func NewLoginValidator() LoginValidator {
 // profile validator goes down here
 type ProfileValidator struct {
   Profile struct {
-    Roles      []Role      `json:"roles" form:"roles"`
-    Frameworks []Framework `json:"frameworks" form:"frameworks"`
-    DB         []DB        `json:"db" form:"db"`
-    Front      []Front     `json:"front" form:"front"`
-    Back       []Back      `json:"back" form:"back"`
-    Extra      []Extra     `json:"extra" form:"extra"`
-    DevOps     []Devops    `json:"devops" form:"devops"`
-    Cloud      []Cloud     `json:"cloud" form:"cloud"`
+    Roles       []Role      `json:"roles" form:"roles"`
+    Frameworks  []Framework `json:"frameworks" form:"frameworks"`
+    DB          []DB        `json:"db" form:"db"`
+    Front       []Front     `json:"front" form:"front"`
+    Back        []Back      `json:"back" form:"back"`
+    Extra       []Extra     `json:"extra" form:"extra"`
+    DevOps      []Devops    `json:"devops" form:"devops"`
+    Cloud       []Cloud     `json:"cloud" form:"cloud"`
+    UserModelID int         `json:"userid" form:"userid"`
   } `json: "profile"`
   profileModel Profile `json: "-"`
 }
@@ -117,6 +118,9 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
     return err
   }
 
+  myUser := c.MustGet("my_user_model").(UserModel)
+
+  self.profileModel.UserModel = myUser
   self.profileModel.setRoles(self.Profile.Roles)
   /*self.profileModel.setFrameworks(self.Profile.Frameworks)
     self.profileModel.setDB(self.Profile.DB)
