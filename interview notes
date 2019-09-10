@@ -1,0 +1,6 @@
+notes on troubles and how i got past:
+
+  First trouble - Getting all the sql relationships to work/ designing complex database models with SQL
+  First resolve - I planned out what i wanted, searched for other people who had done something similar, finding no one i went to the docs and worked it out. From the docs i was able to figure out how to make a belongs to relationship between user and profile and then a has many between profile and its many fields.
+
+  

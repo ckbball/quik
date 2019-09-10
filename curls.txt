@@ -9,22 +9,25 @@ curl --request POST --header "Content-Type: application/json" --write-out "%{htt
 curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/
 
 // USER REGISTER
-curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Seattle", "lastname": "Phoenix", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "junior", "title": "frontend", "block": {}}}' http://localhost:8080/api/auth/
+curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Seattle", "lastname": "Phoenix", "email": "dallas@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "junior", "title": "frontend", "block": {}}}' http://localhost:8080/api/auth/
 
 // USER LOGIN
 curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"email": "American@fly.com", "pass": "please10"}}' http://localhost:8080/api/auth/login
 
 email: American@fly.com
-password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNzE4MzEsImlkIjoxfQ.uJEmZilEoj9YvK2RIXa8s44NC2KZtM8Z9CrwLwo0a6E
+password: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgyMjg0NTUsImlkIjoxfQ.EfpJhwvE_zcHEEccgYFcTCAv3YjE5ydXuDbeXVuPTQE
 
 // USER GET
 curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/1
 
 // USER UPDATE
-curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNzE4MzEsImlkIjoxfQ.uJEmZilEoj9YvK2RIXa8s44NC2KZtM8Z9CrwLwo0a6E" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Billy", "lastname": "Bob", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "Senior", "title": "frontend", "block": {}}}' http://localhost:8080/api/users
+curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgyMjg0NTUsImlkIjoxfQ.EfpJhwvE_zcHEEccgYFcTCAv3YjE5ydXuDbeXVuPTQE" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Billy", "lastname": "Bob", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "Senior", "title": "frontend", "block": {}}}' http://localhost:8080/api/users
 
 // USER PROFILE GET
-curl --request GET --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNzE4MzEsImlkIjoxfQ.uJEmZilEoj9YvK2RIXa8s44NC2KZtM8Z9CrwLwo0a6E" --write-out "%{http_code}\n" http://localhost:8080/api/users/profiles/1
+curl --request GET --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgyMjg0NTUsImlkIjoxfQ.EfpJhwvE_zcHEEccgYFcTCAv3YjE5ydXuDbeXVuPTQE" --write-out "%{http_code}\n" http://localhost:8080/api/users/profiles/1
 
 // USER PROFILE CREATE -- POST
-curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgwNzE4OTEsImlkIjoxfQ.BqsIVqQwnF0k0_8i7J7FMrCcum_dpgRRDphHn7V8OfE" --write-out "%{http_code}\n" --data '{"profile": {"roles": [{ "name": "frontend engineer", "years": 2}], "frameworks": [{ "name": "React", "years": 1}], "db": [{ "name": "mongodb", "years": 2}], "front": [{ "name": "typescript", "years": 2}], "back": [{ "name": "nodejs", "years": 1}], "extra": [], "devops": [{ "name": "jenkins", "years": 1}], "cloud": [{ "name": "gcp", "years": 2}]}}' http://localhost:8080/api/users/profiles
+curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgyMjg0NTUsImlkIjoxfQ.EfpJhwvE_zcHEEccgYFcTCAv3YjE5ydXuDbeXVuPTQE" --write-out "%{http_code}\n" --data '{"profile": {"roles": [{ "name": "frontend engineer", "years": 2}], "frameworks": [{ "name": "React", "years": 1}], "db": [{ "name": "mongodb", "years": 2}], "front": [{ "name": "typescript", "years": 2}], "back": [{ "name": "nodejs", "years": 1}], "extra": [], "devops": [{ "name": "jenkins", "years": 1}], "cloud": [{ "name": "gcp", "years": 2}]}}' http://localhost:8080/api/users/profiles
+
+
+curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjgyMzA1MzIsImlkIjoyfQ.qwBIyf5pnlh41kNtnm50xkop4GsqNx-QUOi7DXvjby8" --write-out "%{http_code}\n" --data '{"profile": {"roles": [{ "name": "frontend engineer", "years": 1}], "frameworks": [{ "name": "React", "years": 1}], "db": [{ "name": "mongodb", "years": 2}], "front": [{ "name": "typescript", "years": 2}], "back": [{ "name": "nodejs", "years": 1}], "extra": [], "devops": [{ "name": "jenkins", "years": 1}], "cloud": [{ "name": "gcp", "years": 2}]}}' http://localhost:8080/api/users/profiles

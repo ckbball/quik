@@ -20,6 +20,8 @@ type UserModel struct {
   Title     string `gorm:"column:title"`  // this is going to be frontend, backend, etc.
 }
 
+// need to change InfoID to profileid
+
 type Profile struct {
   Roles       []Role      `gorm:"foreignkey:InfoID;column:roles"`      // this is going to be backend, frontend, full stack, mobile,
   Frameworks  []Framework `gorm:"foreignkey:InfoID;column:frameworks"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
