@@ -158,15 +158,6 @@ func FindOneProfile(condition interface{}) (Profile, error) {
   return model, err
 }
 
-// something is wrong with this, problem with db.where.related functionality. haven't tried since
-// fixing relations though i think
-func FindProfileByUser(user UserModel) (Profile, error) {
-  db := common.GetDB()
-  var model Profile
-  err := db.Where(&user).Related(&model).Error
-  return model, err
-}
-
 func SaveOne(data interface{}) error {
   db := common.GetDB()
   err := db.Save(data).Error
@@ -179,6 +170,7 @@ func (model *UserModel) Update(data interface{}) error {
   return err
 }
 
+// Correct related context
 func (self *Profile) FillProfile(id int) error {
   db := common.GetDB()
   tx := db.Begin()
