@@ -144,7 +144,7 @@ func UserInfoCreate(c *gin.Context) {
     return
   }
 
-  fmt.Println("check if validator validated profile: ", profile.profileModel)
+  fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
 
   if err := SaveOne(&profile.profileModel); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))

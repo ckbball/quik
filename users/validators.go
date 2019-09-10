@@ -93,6 +93,8 @@ func NewLoginValidator() LoginValidator {
   return loginValidator
 }
 
+// ---------------------------
+
 // profile validator goes down here
 type ProfileValidator struct {
   Profile struct {
@@ -104,8 +106,6 @@ type ProfileValidator struct {
     Extra      []Extra     `json:"extra" form:"extra"`
     DevOps     []Devops    `json:"devops" form:"devops"`
     Cloud      []Cloud     `json:"cloud" form:"cloud"`
-    ID         int         `json:"id" form:"id" `
-    UserID     int         `json:"userid" form:"userid"`
   } `json: "profile"`
   profileModel Profile `json: "-"`
 }
@@ -118,16 +118,14 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
     return err
   }
 
-  self.profileModel.Roles = self.Profile.Roles
-  self.profileModel.Frameworks = self.Profile.Frameworks
-  self.profileModel.DB = self.Profile.DB
-  self.profileModel.Back = self.Profile.Back
-  self.profileModel.Extra = self.Profile.Extra
-  self.profileModel.DevOps = self.Profile.DevOps
-  self.profileModel.Cloud = self.Profile.Cloud
-  self.profileModel.Front = self.Profile.Front
-  self.profileModel.ID = self.Profile.ID
-  self.profileModel.UserID = self.Profile.UserID
+  self.profileModel.setRoles(self.Profile.Roles)
+  self.profileModel.setFrameworks(self.Profile.Frameworks)
+  self.profileModel.setDB(self.Profile.DB)
+  self.profileModel.setBack(self.Profile.Back)
+  self.profileModel.setExtra(self.Profile.Extra)
+  self.profileModel.setDevOps(self.Profile.DevOps)
+  self.profileModel.setCloud(self.Profile.Cloud)
+  self.profileModel.setFront(self.Profile.Front)
 
   fmt.Println("/users/validators-126: Check if copying Profile to profileModel correctly: ", self.profileModel)
   return nil

@@ -30,15 +30,30 @@ type Profile struct {
   Extra      []Extra     `gorm:"foreignkey:InfoID;column:extra"`      // dont know what should be here
   DevOps     []Devops    `gorm:"foreignkey:InfoID;column:devops"`     // CI/CD tools, other things idk
   Cloud      []Cloud     `gorm:"foreignkey:InfoID;column:cloud"`      // which cloud tools and platforms user has made a project with
-  ID         int         ` gorm:"primary_key`
-  UserID     int         ` gorm:"column:userid"`
+  ID         int         `gorm:"primary_key`
+  UserID     int         `gorm:"column:userid"`
 }
 
 type Role struct {
-  ID     int    ` gorm:"primary_key"`
+  ID     int    `gorm:"primary_key"`
   Name   string `json: "name" gorm:"column:name"`
   Years  int    `json: "years" gorm:"column:years"`
-  InfoID int    `gorm:"column:infoid"`
+  InfoID int
+}
+
+func (model *Profile) setRoles(roles []Role) error {
+  db := common.GetDB()
+  var roleList []Role
+  for _, role := range roles {
+    var roleModel Role
+    err := db.FirstOrCreate(&roleModel, Role{Name: role.Name, Years: role.Years})
+    if err != nil {
+      return err
+    }
+    roleList = append(roleList, roleModel)
+  }
+  model.Roles = roleList
+  return nil
 }
 
 type Framework struct {
