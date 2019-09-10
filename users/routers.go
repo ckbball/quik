@@ -20,7 +20,7 @@ func UsersRegister(router *gin.RouterGroup) {
 func Register(router *gin.RouterGroup) {
   // router.GET("/:id", UserGet) // to be used by another person looking at someone else's profile or by applications of a job view
   router.POST("", UserUpdate)
-  router.GET("/profiles/:id", UserInfoGet)
+  router.GET("/profiles/:id", UserInfoGet) // id is user profile
   router.POST("/profiles", UserInfoCreate)
 }
 
@@ -122,6 +122,9 @@ func UserInfoGet(c *gin.Context) {
   }
 
   user, err := FindOneProfile(&Profile{UserModelID: Id}) // models.go function
+
+  fmt.Println()
+  fmt.Println("GET - /profiles/:id - testing to see if we got user: ", user)
 
   if err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))

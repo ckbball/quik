@@ -63,7 +63,7 @@ type Framework struct {
   ID     int    ` gorm:"primary_key"`
   Name   string `json: "name" gorm:"column:name"`
   Years  int    `json: "years" gorm:"column:years"`
-  InfoID int    `gorm:"column:infoid"`
+  InfoID int
 }
 
 type DB struct {
