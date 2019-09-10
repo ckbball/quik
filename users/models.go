@@ -2,7 +2,7 @@ package users
 
 import (
   "errors"
-  //"fmt"
+  "fmt"
   "github.com/ckbball/quik/common"
   //"github.com/jinzhu/gorm"
   "golang.org/x/crypto/bcrypt"
@@ -31,7 +31,7 @@ type Profile struct {
   DevOps     []Devops    `gorm:"foreignkey:InfoID;column:devops"`     // CI/CD tools, other things idk
   Cloud      []Cloud     `gorm:"foreignkey:InfoID;column:cloud"`      // which cloud tools and platforms user has made a project with
   ID         int         `gorm:"primary_key`
-  UserID     int         `gorm:"column:userid"`
+  UserID     int
 }
 
 type Role struct {
@@ -46,9 +46,10 @@ func (model *Profile) setRoles(roles []Role) {
   var roleList []Role
   for _, role := range roles {
     var roleModel Role
-    err := db.FirstOrCreate(&roleModel, Role{Name: role.Name, Years: role.Years})
+    err := db.FirstOrCreate(&roleModel, Role{Name: role.Name, Years: role.Years}).Error
+    fmt.Println("added role to database: ", role)
     if err != nil {
-      fmt.Println("err setroles: ", err)
+      fmt.Println(common.NewError("database", err))
     }
     roleList = append(roleList, roleModel)
   }
@@ -152,6 +153,13 @@ func FindOneProfile(condition interface{}) (Profile, error) {
   db := common.GetDB()
   var model Profile
   err := db.Where(condition).First(&model).Error
+  return model, err
+}
+
+func FindProfileByUser(user UserModel) (Profile, error) {
+  db := common.GetDB()
+  var model Profile
+  err := db.Where(&user).Related(&model)
   return model, err
 }
 

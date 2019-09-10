@@ -144,6 +144,11 @@ func UserInfoCreate(c *gin.Context) {
     return
   }
 
+  // check if user already has profile. if yes return error. if no continue
+  if _, err := FindProfileByUser(c.Get("my_user_model")); err == nil {
+    c.JSON(http.StatusBadRequest, gin.H{"msg": "Profile already exists"})
+  }
+
   fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
 
   if err := SaveOne(&profile.profileModel); err != nil {
