@@ -82,18 +82,18 @@ type ProfileResponse struct {
 }
 
 func (self *ProfileSerializer) Response() ProfileResponse {
-  user := self.c.MustGet("my_user_model").(UserModel)
+  user := self.c.MustGet("my_profile_model").(Profile)
   out := ProfileResponse{
-    Roles:      user.Profile.Roles,
-    Frameworks: user.Profile.Frameworks,
-    DB:         user.Profile.DB,
-    Front:      user.Profile.Front,
-    Back:       user.Profile.Back,
-    Extra:      user.Profile.Extra,
-    DevOps:     user.Profile.DevOps,
-    Cloud:      user.Profile.Cloud,
-    ID:         user.Profile.ID,
-    UserID:     user.Profile.UserID,
+    Roles:      user.Roles,
+    Frameworks: user.Frameworks,
+    DB:         user.DB,
+    Front:      user.Front,
+    Back:       user.Back,
+    Extra:      user.Extra,
+    DevOps:     user.DevOps,
+    Cloud:      user.Cloud,
+    ID:         user.ID,
+    UserID:     user.UserID,
   }
 
   return out

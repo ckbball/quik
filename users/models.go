@@ -9,29 +9,29 @@ import (
 )
 
 type UserModel struct {
-  ID        int     ` gorm:"primary_key"`
-  Firstname string  ` gorm:"column:firstname"`
-  Lastname  string  `gorm:"column:lastname"`
-  Email     string  `gorm:"column:email;unique_index"`
-  Hash      string  ` gorm:"column:password;not null"`
-  HasInfo   bool    ` gorm:"column:hasinfo"`
-  Status    string  `gorm:"column:status"` // this is going to be searching, perusing, locked
-  Level     string  `gorm:"column:level"`  // this is going to be entry, mid, senior
-  Title     string  `gorm:"column:title"`  // this is going to be frontend, backend, etc.
-  Profile   Profile `gorm:"foreignkey:UserID"`
+  ID        int    ` gorm:"primary_key"`
+  Firstname string ` gorm:"column:firstname"`
+  Lastname  string `gorm:"column:lastname"`
+  Email     string `gorm:"column:email;unique_index"`
+  Hash      string ` gorm:"column:password;not null"`
+  HasInfo   bool   ` gorm:"column:hasinfo"`
+  Status    string `gorm:"column:status"` // this is going to be searching, perusing, locked
+  Level     string `gorm:"column:level"`  // this is going to be entry, mid, senior
+  Title     string `gorm:"column:title"`  // this is going to be frontend, backend, etc.
 }
 
 type Profile struct {
-  Roles      []Role      `gorm:"foreignkey:InfoID;column:roles"`      // this is going to be backend, frontend, full stack, mobile,
-  Frameworks []Framework `gorm:"foreignkey:InfoID;column:frameworks"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
-  DB         []DB        `gorm:"foreignkey:InfoID;column:db"`         // this is all dbs that a user has built a project with
-  Front      []Front     `gorm:"foreignkey:InfoID;column:front"`      // languages and methods for front end user has built a project with
-  Back       []Back      `gorm:"foreignkey:InfoID;column:back"`       // languages and methods for backend user has built a project with
-  Extra      []Extra     `gorm:"foreignkey:InfoID;column:extra"`      // dont know what should be here
-  DevOps     []Devops    `gorm:"foreignkey:InfoID;column:devops"`     // CI/CD tools, other things idk
-  Cloud      []Cloud     `gorm:"foreignkey:InfoID;column:cloud"`      // which cloud tools and platforms user has made a project with
-  ID         int         `gorm:"primary_key`
-  UserID     int
+  Roles       []Role      `gorm:"foreignkey:InfoID;column:roles"`      // this is going to be backend, frontend, full stack, mobile,
+  Frameworks  []Framework `gorm:"foreignkey:InfoID;column:frameworks"` // this is going to be all frameworks, front and back, that user knows meaning they built a project with it
+  DB          []DB        `gorm:"foreignkey:InfoID;column:db"`         // this is all dbs that a user has built a project with
+  Front       []Front     `gorm:"foreignkey:InfoID;column:front"`      // languages and methods for front end user has built a project with
+  Back        []Back      `gorm:"foreignkey:InfoID;column:back"`       // languages and methods for backend user has built a project with
+  Extra       []Extra     `gorm:"foreignkey:InfoID;column:extra"`      // dont know what should be here
+  DevOps      []Devops    `gorm:"foreignkey:InfoID;column:devops"`     // CI/CD tools, other things idk
+  Cloud       []Cloud     `gorm:"foreignkey:InfoID;column:cloud"`      // which cloud tools and platforms user has made a project with
+  ID          int         `gorm:"primary_key`
+  UserModelID int
+  UserModel   UserModel `gorm:"foreignkey:UserModelID"`
 }
 
 type Role struct {
@@ -159,7 +159,7 @@ func FindOneProfile(condition interface{}) (Profile, error) {
 func FindProfileByUser(user UserModel) (Profile, error) {
   db := common.GetDB()
   var model Profile
-  err := db.Where(&user).Related(&model)
+  err := db.Where(&user).Related(&model).Error
   return model, err
 }
 

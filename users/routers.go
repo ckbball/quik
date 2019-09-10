@@ -143,11 +143,18 @@ func UserInfoCreate(c *gin.Context) {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
     return
   }
+  /*
+    user, err := c.MustGet("my_user_model").(UserModel)
+    if !err {
+      fmt.Println("POST - /profile : error in getting user, ", err)
+    }
+    fmt.Println("got user")*/
 
   // check if user already has profile. if yes return error. if no continue
-  if _, err := FindProfileByUser(c.Get("my_user_model")); err == nil {
-    c.JSON(http.StatusBadRequest, gin.H{"msg": "Profile already exists"})
-  }
+  /*
+     if _, err := FindProfileByUser(user); err == nil {
+       c.JSON(http.StatusBadRequest, gin.H{"msg": "Profile already exists"})
+     }*/
 
   fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
 
