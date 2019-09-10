@@ -150,7 +150,7 @@ func UserInfoCreate(c *gin.Context) {
   }
   fmt.Println("got user")
   // check if user already has profile. if so return error. if not continue
-  if !user.HasInfo {
+  if user.HasInfo {
     c.JSON(http.StatusBadRequest, gin.H{"msg": "User already has profile"})
     return
   }
