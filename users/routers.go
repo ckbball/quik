@@ -144,7 +144,7 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  UpdateContextProfile(c, profile.ID)
+  UpdateContextProfile(c, profile)
   // test context profile
   fmt.Println()
   fmt.Println("CONTEXT PROFILE: ", c.MustGet("my_profile_model").(Profile))

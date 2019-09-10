@@ -19,13 +19,7 @@ func UpdateContextUserModel(c *gin.Context, my_user_id int) {
   c.Set("my_user_model", user)
 }
 
-func UpdateContextProfile(c *gin.Context, my_user_id int) {
-  var profile Profile
-  if my_user_id != 0 {
-    db := common.GetDB()
-    db.First(&profile, my_user_id)
-  }
-  c.Set("my_user_id", my_user_id)
+func UpdateContextProfile(c *gin.Context, profile Profile) {
   c.Set("my_profile_model", profile)
 }
 
