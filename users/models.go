@@ -41,19 +41,19 @@ type Role struct {
   InfoID int
 }
 
-func (model *Profile) setRoles(roles []Role) error {
+func (model *Profile) setRoles(roles []Role) {
   db := common.GetDB()
   var roleList []Role
   for _, role := range roles {
     var roleModel Role
     err := db.FirstOrCreate(&roleModel, Role{Name: role.Name, Years: role.Years})
     if err != nil {
-      return err
+      fmt.Println("err setroles: ", err)
     }
     roleList = append(roleList, roleModel)
   }
   model.Roles = roleList
-  return nil
+  fmt.Println("checking if setroles worked properly: ", model.Roles)
 }
 
 type Framework struct {

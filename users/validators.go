@@ -119,13 +119,13 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
   }
 
   self.profileModel.setRoles(self.Profile.Roles)
-  self.profileModel.setFrameworks(self.Profile.Frameworks)
-  self.profileModel.setDB(self.Profile.DB)
-  self.profileModel.setBack(self.Profile.Back)
-  self.profileModel.setExtra(self.Profile.Extra)
-  self.profileModel.setDevOps(self.Profile.DevOps)
-  self.profileModel.setCloud(self.Profile.Cloud)
-  self.profileModel.setFront(self.Profile.Front)
+  /*self.profileModel.setFrameworks(self.Profile.Frameworks)
+    self.profileModel.setDB(self.Profile.DB)
+    self.profileModel.setBack(self.Profile.Back)
+    self.profileModel.setExtra(self.Profile.Extra)
+    self.profileModel.setDevOps(self.Profile.DevOps)
+    self.profileModel.setCloud(self.Profile.Cloud)
+    self.profileModel.setFront(self.Profile.Front)*/
 
   fmt.Println("/users/validators-126: Check if copying Profile to profileModel correctly: ", self.profileModel)
   return nil
