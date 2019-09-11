@@ -113,7 +113,6 @@ type ProfileValidator struct {
 func (self *ProfileValidator) Bind(c *gin.Context) error {
   err := common.Bind(c, self)
 
-  fmt.Println("/users/validators-116: Check if common.Bind() binded the body to Profile properly: ", self.Profile)
   if err != nil {
     return err
   }
@@ -137,4 +136,13 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
 func NewProfileValidator() ProfileValidator {
   profileValidator := ProfileValidator{}
   return profileValidator
+}
+
+func NewProfileModelValidatorFillWith(profile Profile) ProfileValidator {
+  out := NewProfileValidator()
+  out.Profile.UserModeID = profile.UserModelID
+  out.Profile.setRoles(profile.Roles)
+  // add all other fields here too
+
+  return out
 }

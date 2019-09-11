@@ -198,10 +198,15 @@ func UserInfoCreate(c *gin.Context) {
 
 // Always send whole profile over not just the updated bits
 func UserInfoUpdate(c *gin.Context) {
-  // validator
-  var profile = NewProfileValidator()
+
+  model, errs := FindOneProfile(&Profile{UserModelID: &profile.profileModel.UserModelID})
+  if errs != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", errs))
+    return
+  }
 
   //bind
+  profile := NewProfileValidatorFillWith(model)
   if err := profile.Bind(c); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
     return
@@ -219,15 +224,9 @@ func UserInfoUpdate(c *gin.Context) {
   }
 
   fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
-  /*
-    model, errs := FindOneProfile(&Profile{UserModelID: &profile.profileModel.UserModelID})
-    if errs != nil {
-      c.JSON(http.StatusUnprocessableEntity, common.NewError("database", errs))
-      return
-    }
-  */
-  model := profile.profileModel
-  if err := model.Update(model); err != nil {
+
+  profile.profileModel.ID = model.ID
+  if err := model.Update(profile.profileModel); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return
   }
