@@ -22,6 +22,7 @@ func Register(router *gin.RouterGroup) {
   router.POST("", UserUpdate)
   router.GET("/profiles/:id", UserInfoGet) // id is user profile
   router.POST("/profiles", UserInfoCreate)
+  router.POST("/profiles/", UserInfoUpdate)
 }
 
 func UsersRegistration(c *gin.Context) {
@@ -195,6 +196,7 @@ func UserInfoCreate(c *gin.Context) {
   c.JSON(http.StatusCreated, gin.H{"profile": serializer.Response()})
 }
 
+// Always send whole profile over not just the updated bits
 func UserInfoUpdate(c *gin.Context) {
   // validator
   var profile = NewProfileValidator()
@@ -217,19 +219,20 @@ func UserInfoUpdate(c *gin.Context) {
   }
 
   fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
-
-  model, err = FindOneProfile(&profile.profileModel.UserModelID)
-  if err != nil {
+  /*
+    model, errs := FindOneProfile(&Profile{UserModelID: &profile.profileModel.UserModelID})
+    if errs != nil {
+      c.JSON(http.StatusUnprocessableEntity, common.NewError("database", errs))
+      return
+    }
+  */
+  model := profile.profileModel
+  if err := model.Update(model); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return
   }
 
-  if err := profile.profileModel.Update(profile.profileModel); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
-    return
-  }
-
-  c.Set("my_profile_model", profile.profileModel)
+  c.Set("my_profile_model", model)
   serializer := ProfileSerializer{c}
   c.JSON(http.StatusCreated, gin.H{"profile": serializer.Response()})
 }

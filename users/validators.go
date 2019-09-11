@@ -120,7 +120,7 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
 
   myUser := c.MustGet("my_user_model").(UserModel)
 
-  self.profileModel.UserModel = myUser
+  self.profileModel.UserModelID = myUser.ID
   self.profileModel.setRoles(self.Profile.Roles)
   /*self.profileModel.setFrameworks(self.Profile.Frameworks)
     self.profileModel.setDB(self.Profile.DB)
