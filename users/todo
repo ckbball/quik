@@ -13,6 +13,6 @@ legend: X - completed
   - User Get  ---------- X
   - User Update ---------- X _ need to implement authentication first so that I can have access to my_user_model  X  // currently authenticate token placed in header as "Authorization: <token>"  after updating a new token will be generated so have to handle that maybe?
   - User Profile Get  ---------- 
-  - User Profile Update ----------  Y
-  - User Profile Create ----------  Y // look up again
+  - User Profile Update ----------  
+  - User Profile Create ----------  
 

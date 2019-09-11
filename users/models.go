@@ -43,6 +43,7 @@ type Role struct {
   InfoID int
 }
 
+// used in validator bind to profile
 func (model *Profile) setRoles(roles []Role) {
   db := common.GetDB()
   var roleList []Role
@@ -170,11 +171,18 @@ func (model *UserModel) Update(data interface{}) error {
   return err
 }
 
+func (model *Profile) Update(data interface{}) error {
+  db := common.GetDB()
+  err := db.Model(model).Update(data).Error
+  return err
+}
+
 // Correct related context
 func (self *Profile) FillProfile(id int) error {
   db := common.GetDB()
   tx := db.Begin()
   tx.Model(self).Related(&self.Roles, "Roles")
+  // add all the other fields here when implemented
   err := tx.Commit().Error
   return err
 }

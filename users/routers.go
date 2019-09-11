@@ -194,3 +194,42 @@ func UserInfoCreate(c *gin.Context) {
   serializer := ProfileSerializer{c}
   c.JSON(http.StatusCreated, gin.H{"profile": serializer.Response()})
 }
+
+func UserInfoUpdate(c *gin.Context) {
+  // validator
+  var profile = NewProfileValidator()
+
+  //bind
+  if err := profile.Bind(c); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
+    return
+  }
+
+  user, err := c.MustGet("my_user_model").(UserModel)
+  if !err {
+    fmt.Println("POST - /profile/:id : error in getting user, ", err)
+  }
+  fmt.Println("got user")
+  // check if user already has profile. if so return error. if not continue
+  if !user.HasInfo {
+    c.JSON(http.StatusBadRequest, gin.H{"msg": "User doesn't have a profile"})
+    return
+  }
+
+  fmt.Println("users/routers/147 - check if validator validated profile: ", profile.profileModel)
+
+  model, err = FindOneProfile(&profile.profileModel.UserModelID)
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    return
+  }
+
+  if err := profile.profileModel.Update(profile.profileModel); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    return
+  }
+
+  c.Set("my_profile_model", profile.profileModel)
+  serializer := ProfileSerializer{c}
+  c.JSON(http.StatusCreated, gin.H{"profile": serializer.Response()})
+}
