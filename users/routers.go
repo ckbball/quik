@@ -22,7 +22,7 @@ func Register(router *gin.RouterGroup) {
   router.POST("", UserUpdate)
   router.GET("/profiles/:id", UserInfoGet) // id is user profile
   router.POST("/profiles", UserInfoCreate)
-  router.POST("/profiles/", UserInfoUpdate)
+  router.POST("/profiles/:id", UserInfoUpdate)
 }
 
 func UsersRegistration(c *gin.Context) {
@@ -198,22 +198,29 @@ func UserInfoCreate(c *gin.Context) {
 
 // Always send whole profile over not just the updated bits
 func UserInfoUpdate(c *gin.Context) {
+  id := c.Param("id")
+  Id, err := strconv.Atoi(id)
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("profile update", errors.New("DB: Invalid Id")))
+    fmt.Println(err)
+    return
+  }
 
-  model, errs := FindOneProfile(&Profile{UserModelID: &profile.profileModel.UserModelID})
+  model, errs := FindOneProfile(&Profile{UserModelID: Id})
   if errs != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", errs))
     return
   }
 
   //bind
-  profile := NewProfileValidatorFillWith(model)
+  profile := NewProfileModelValidatorFillWith(model)
   if err := profile.Bind(c); err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
     return
   }
 
-  user, err := c.MustGet("my_user_model").(UserModel)
-  if !err {
+  user, errss := c.MustGet("my_user_model").(UserModel)
+  if !errss {
     fmt.Println("POST - /profile/:id : error in getting user, ", err)
   }
   fmt.Println("got user")

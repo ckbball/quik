@@ -121,6 +121,7 @@ func (self *ProfileValidator) Bind(c *gin.Context) error {
 
   self.profileModel.UserModelID = myUser.ID
   self.profileModel.setRoles(self.Profile.Roles)
+  self.profileModel.UserModel = myUser
   /*self.profileModel.setFrameworks(self.Profile.Frameworks)
     self.profileModel.setDB(self.Profile.DB)
     self.profileModel.setBack(self.Profile.Back)
@@ -140,8 +141,8 @@ func NewProfileValidator() ProfileValidator {
 
 func NewProfileModelValidatorFillWith(profile Profile) ProfileValidator {
   out := NewProfileValidator()
-  out.Profile.UserModeID = profile.UserModelID
-  out.Profile.setRoles(profile.Roles)
+  out.Profile.UserModelID = profile.UserModelID
+  out.Profile.Roles = profile.Roles
   // add all other fields here too
 
   return out
