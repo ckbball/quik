@@ -2,17 +2,32 @@ ROUTES:
 
 legend: X - completed
         Y - Next to do
+        U<X> - LATER in order, lowest has highest prio
 
   Not Authorized routes:
   - User Registration ---------- X
   - User Login  ---------- X
-  - list of jobs
-  - view a specific job
+  - list of jobs -------------  U2
+  - view a specific job --------------  U2
+  - Company Registration --------- Y
+  - Company Login ------------ Y
 
   Authorized Routes:
   - User Get  ---------- X
-  - User Update ---------- X _ need to implement authentication first so that I can have access to my_user_model  X  // currently authenticate token placed in header as "Authorization: <token>"  after updating a new token will be generated so have to handle that maybe?
+  - User Update ---------- X _ need to implement authentication first so that I can have access to my_user_model  X  // currently authenticate token placed in header as "Authorization: <token>"  after updating a new token will be generated so have to handle that maybe? -- DONE
   - User Profile Get  ---------- X
-  - User Profile Update ----------  Y
+  - User Profile Update ----------  X -- STILL NEED TO ADD FOR OTHER FIELDS
   - User Profile Create ----------  X
+
+  All as company who owns specific job
+  - Create Job ------------ U1
+  - Update Job ------------ U1
+  - Delete Job ------------ U1
+
+  Mixed
+  - Create Application as a user --------------- U3
+  - Update Application as a user or company --------------- U3
+  - Get list of applications by job id restricted to company who owns the job ------------ U4
+  - Get application as a user ----------- U4
+  - Delete Application as a user ---------- U4
 
