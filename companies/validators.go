@@ -3,7 +3,7 @@ package companies
 import (
   "fmt"
   "github.com/ckbball/quik/common"
-  "github.com/ckbball/quik/jobs"
+  // "github.com/ckbball/quik/jobs"
   "github.com/gin-gonic/gin"
 )
 
