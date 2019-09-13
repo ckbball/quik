@@ -34,6 +34,7 @@ func main() {
     // /login
     // /register
     users.UsersRegister(v1.Group("/auth"))
+    companies.CompaniesRegister(v1.Group("/companies"))
   }
 
   // basic authentication routes
