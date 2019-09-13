@@ -47,3 +47,26 @@ func NewCompanyModelValidatorFillWith(company CompanyModel) CompanyModelValidato
 
   return out
 }
+
+type LoginValidator struct {
+  User struct {
+    Email string `json:"email" form:"email" binding:"exists,email`
+    Hash  string `json:"pass" form:"password" binding:"exists,min=8,max=255`
+  } `json:"company"`
+  companyModel CompanyModel `json:"-"`
+}
+
+func (self *LoginValidator) Bind(c *gin.Context) error {
+  err := common.Bind(c, self)
+  if err != nil {
+    return err
+  }
+
+  self.companyModel.Email = self.Company.Email
+  return nil
+}
+
+func NewLoginValidator() LoginValidator {
+  loginValidator := LoginValidator{}
+  return loginValidator
+}

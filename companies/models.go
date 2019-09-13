@@ -29,3 +29,16 @@ func SaveOne(data interface{}) error {
   err := db.Save(data).Error
   return err
 }
+
+func FindOneCompany(data interface{}) (CompanyModel, error) {
+  db := common.GetDB()
+  var model CompanyModel
+  err := db.Where(condition).First(&model).Error
+  return model, err
+}
+
+func (u *CompanyModel) checkPassword(password string) error {
+  bytePassword := []byte(password)
+  byteHashedPassword := []byte(u.Hash)
+  return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+}

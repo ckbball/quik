@@ -12,9 +12,9 @@ import (
 // No-Auth Routes
 func CompaniesRegister(router *gin.RouterGroup) {
   router.POST("/", CompaniesRegistration)
+  router.POST("/login", CompaniesLogin)
   /*
-    router.POST("/login", CompaniesLogin)
-    router.GET("/:id", CompaniesGet) // idk if this should be un-auth'd or third partied or first only
+     router.GET("/:id", CompaniesGet) // idk if this should be un-auth'd or third partied or first only
   */
 }
 
@@ -43,4 +43,30 @@ func CompaniesRegistration(c *gin.Context) {
   c.Set("my_company_model", company.companyModel)
   serializer := CompanySerializer{c}
   c.JSON(http.StatusCreated, gin.H{"company": serializer.Response()})
+}
+
+func CompaniesLogin(c *gin.Context) {
+  login := NewLoginValidator()
+  if err := login.Bind(c); err != nil {
+    c.JSON(http.StatusForbidden, common.NewError("login", errors.New("Validator error")))
+    return
+  }
+
+  fmt.Println("Checking login validator binding: --> ", login)
+
+  company, err := FindOneCompany(&CompanyModel{Email: login.companyModel.Email}) //models.go function
+
+  // sending error with token and pass
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("DB: Email not registered or invalid password")))
+    return
+  }
+
+  if company.checkPassword(login.Company.Hash) != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Check: Email not registered  or invalid password")))
+    return
+  }
+  UpdateContextCompanyModel(c, company.ID)
+  serializer := CompanySerializer{c}
+  c.JSON(http.StatusOK, gin.H{"company": serializer.Response()})
 }
