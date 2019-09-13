@@ -9,12 +9,12 @@ import (
 )
 
 type UserModel struct {
-  ID        int    ` gorm:"primary_key"`
-  Firstname string ` gorm:"column:firstname"`
+  ID        int    `gorm:"primary_key"`
+  Firstname string `gorm:"column:firstname"`
   Lastname  string `gorm:"column:lastname"`
   Email     string `gorm:"column:email;unique_index"`
-  Hash      string ` gorm:"column:password;not null"`
-  HasInfo   bool   ` gorm:"column:hasinfo"`
+  Hash      string `gorm:"column:password;not null"`
+  HasInfo   bool   `gorm:"column:hasinfo"`
   Status    string `gorm:"column:status"` // this is going to be searching, perusing, locked
   Level     string `gorm:"column:level"`  // this is going to be entry, mid, senior
   Title     string `gorm:"column:title"`  // this is going to be frontend, backend, etc.
