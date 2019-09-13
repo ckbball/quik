@@ -9,6 +9,7 @@ import (
   "golang.org/x/crypto/bcrypt"
 )
 
+// unsure about this model
 type JobModel struct {
   ID               int `gorm:"primary_key"`
   CompanyID        int

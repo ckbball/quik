@@ -17,3 +17,15 @@ type CompanyModel struct {
   Hash    string          `gorm:"cloumn:pass"`
   Jobs    []jobs.JobModel `gorm:"foreignkey:CompanyID;column:jobs"`
 }
+
+func AutoMigrate() {
+  db := common.GetDB()
+
+  db.AutoMigrate(&CompanyModel{})
+}
+
+func SaveOne(data interface{}) error {
+  db := common.GetDB()
+  err := db.Save(data).Error
+  return err
+}
