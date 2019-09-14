@@ -1,7 +1,7 @@
 package companies
 
 import (
-  "fmt"
+  //"fmt"
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
 )
@@ -20,8 +20,6 @@ type CompanyModelValidator struct {
 func (self *CompanyModelValidator) Bind(c *gin.Context) error {
   err := common.Bind(c, self)
 
-  fmt.Println("/companies/validators-23: Check if common.Bind() binded the body to Company properly: ", self.Company)
-  fmt.Println()
   if err != nil {
     return err
   }
