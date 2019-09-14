@@ -9,8 +9,8 @@ legend: X - completed
   - User Login  ---------- X
   - list of jobs -------------  U2
   - view a specific job --------------  U2
-  - Company Registration --------- Y
-  - Company Login ------------ Y
+  - Company Registration --------- X
+  - Company Login ------------ X
 
   Authorized Routes:
   - User Get  ---------- X
@@ -20,9 +20,9 @@ legend: X - completed
   - User Profile Create ----------  X
 
   All as company who owns specific job
-  - Create Job ------------ U1
-  - Update Job ------------ U1
-  - Delete Job ------------ U1
+  - Create Job ------------ Y
+  - Update Job ------------ Y
+  - Delete Job ------------ Y
 
   Mixed
   - Create Application as a user --------------- U3
