@@ -68,7 +68,9 @@ func CompaniesLogin(c *gin.Context) {
   }
 
   fmt.Println("Checking company model found in routers- line 70 - : ", company)
+  fmt.Println()
   UpdateContextCompanyModel(c, company.ID)
+  fmt.Println("Checking UpdateContextCompanyModel ", c.MustGet("my_company_model").(CompanyModel))
   serializer := CompanySerializer{c}
   c.JSON(http.StatusOK, gin.H{"company": serializer.Response()})
 }
