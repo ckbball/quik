@@ -56,7 +56,7 @@ func NewCompanyModelValidatorFillWith(company CompanyModel) CompanyModelValidato
 type LoginValidator struct {
   Company struct {
     Email string `json:"email" form:"email" binding:"exists,email`
-    Pass  string `json:"pass" form:"password" binding:"exists,min=8,max=255`
+    Pass  string `json:"password" form:"password" binding:"exists,min=8,max=255`
   } `json:"company"`
   companyModel CompanyModel `json:"-"`
 }

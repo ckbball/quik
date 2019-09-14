@@ -66,6 +66,8 @@ func CompaniesLogin(c *gin.Context) {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Check: Email not registered  or invalid password")))
     return
   }
+
+  fmt.Println("Checking company model found in routers- line 70 - : ", company)
   UpdateContextCompanyModel(c, company.ID)
   serializer := CompanySerializer{c}
   c.JSON(http.StatusOK, gin.H{"company": serializer.Response()})
