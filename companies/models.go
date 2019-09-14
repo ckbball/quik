@@ -13,7 +13,7 @@ type CompanyModel struct {
   Name    string `gorm:"column:name"`
   Size    int    `gorm:"column:size"`
   Mission string `gorm:"column:mission"`
-  Hash    string `gorm:"column:password;not null"`
+  Pass    string `gorm:"column:password;not null"`
   Email   string `gorm:"column:email:unique_index"`
   // maybe have a jobs model here
 }
@@ -31,7 +31,7 @@ func (u *CompanyModel) setPassword(password string) error {
 
   bytePassword := []byte(password)
   passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
-  u.Hash = string(passwordHash)
+  u.Pass = string(passwordHash)
   return nil
 }
 
@@ -50,6 +50,6 @@ func FindOneCompany(condition interface{}) (CompanyModel, error) {
 
 func (u *CompanyModel) checkPassword(password string) error {
   bytePassword := []byte(password)
-  byteHashedPassword := []byte(u.Hash)
+  byteHashedPassword := []byte(u.Pass)
   return bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 }

@@ -62,7 +62,7 @@ func CompaniesLogin(c *gin.Context) {
     return
   }
 
-  if company.checkPassword(login.Company.Hash) != nil {
+  if company.checkPassword(login.Company.Pass) != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("login", errors.New("Check: Email not registered  or invalid password")))
     return
   }
