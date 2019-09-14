@@ -3,7 +3,6 @@ package companies
 import (
   "fmt"
   "github.com/ckbball/quik/common"
-  // "github.com/ckbball/quik/jobs"
   "github.com/gin-gonic/gin"
 )
 
@@ -34,7 +33,7 @@ func (self *CompanyModelValidator) Bind(c *gin.Context) error {
 }
 
 func NewCompanyModelValidator() CompanyModelValidator {
-  validator := CompanyModelValidator
+  validator := CompanyModelValidator{}
   return validator
 }
 
@@ -49,7 +48,7 @@ func NewCompanyModelValidatorFillWith(company CompanyModel) CompanyModelValidato
 }
 
 type LoginValidator struct {
-  User struct {
+  Company struct {
     Email string `json:"email" form:"email" binding:"exists,email`
     Hash  string `json:"pass" form:"password" binding:"exists,min=8,max=255`
   } `json:"company"`

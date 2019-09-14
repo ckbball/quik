@@ -1,12 +1,11 @@
 package jobs
 
 import (
-  "errors"
-  "fmt"
-  "github.com/ckbball/quik/common"
-  //"github.com/jinzhu/gorm"
-  "github.com/ckbball/quik/companies"
-  "golang.org/x/crypto/bcrypt"
+//"errors"
+//"fmt"
+//"github.com/ckbball/quik/common"
+//"github.com/jinzhu/gorm"
+//"golang.org/x/crypto/bcrypt"
 )
 
 // unsure about this model

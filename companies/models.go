@@ -1,21 +1,21 @@
 package companies
 
 import (
-  "errors"
-  "fmt"
+  //"errors"
+  //"fmt"
   "github.com/ckbball/quik/common"
-  //"github.com/jinzhu/gorm"
-  "github.com/ckbball/quik/jobs"
+  //"github.com/ckbball/quik/jobs"
   "golang.org/x/crypto/bcrypt"
 )
 
 type CompanyModel struct {
-  ID      int             `gorm:"primary_key"`
-  Name    string          `gorm:"column:name"`
-  Size    int             `gorm:"column:size:unique_index"`
-  Mission string          `gorm:"column:mission"`
-  Hash    string          `gorm:"cloumn:pass"`
-  Jobs    []jobs.JobModel `gorm:"foreignkey:CompanyID;column:jobs"`
+  ID      int    `gorm:"primary_key"`
+  Name    string `gorm:"column:name"`
+  Size    int    `gorm:"column:size:unique_index"`
+  Mission string `gorm:"column:mission"`
+  Hash    string `gorm:"column:pass"`
+  Email   string `gorm:"column:email"`
+  // maybe have a jobs model here
 }
 
 func AutoMigrate() {
@@ -30,7 +30,7 @@ func SaveOne(data interface{}) error {
   return err
 }
 
-func FindOneCompany(data interface{}) (CompanyModel, error) {
+func FindOneCompany(condition interface{}) (CompanyModel, error) {
   db := common.GetDB()
   var model CompanyModel
   err := db.Where(condition).First(&model).Error
