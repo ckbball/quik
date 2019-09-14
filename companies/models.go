@@ -1,7 +1,7 @@
 package companies
 
 import (
-  //"errors"
+  "errors"
   //"fmt"
   "github.com/ckbball/quik/common"
   //"github.com/ckbball/quik/jobs"
@@ -11,10 +11,10 @@ import (
 type CompanyModel struct {
   ID      int    `gorm:"primary_key"`
   Name    string `gorm:"column:name"`
-  Size    int    `gorm:"column:size:unique_index"`
+  Size    int    `gorm:"column:size"`
   Mission string `gorm:"column:mission"`
-  Hash    string `gorm:"column:pass"`
-  Email   string `gorm:"column:email"`
+  Hash    string `gorm:"column:password;not null"`
+  Email   string `gorm:"column:email:unique_index"`
   // maybe have a jobs model here
 }
 
@@ -22,6 +22,17 @@ func AutoMigrate() {
   db := common.GetDB()
 
   db.AutoMigrate(&CompanyModel{})
+}
+
+func (u *CompanyModel) setPassword(password string) error {
+  if len(password) == 0 {
+    return errors.New("password cannot be empty")
+  }
+
+  bytePassword := []byte(password)
+  passwordHash, _ := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
+  u.Hash = string(passwordHash)
+  return nil
 }
 
 func SaveOne(data interface{}) error {

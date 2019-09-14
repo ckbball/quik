@@ -11,7 +11,8 @@ type CompanyModelValidator struct {
     Name    string `json:"name" form:"name" binding:"exists,alphanum"`
     Size    int    `json:"size" form:"size" binding:"exists"`
     Mission string `json:"mission" form:"mission" binding:"exists,alphanum"` //maybe give this a max
-    Hash    string `json:"pass" form:"pass" binding"exists,min=8,max255"`
+    Hash    string `json:"password" form:"password" binding:"exists,min=8,max255"`
+    Email   string `json:"email" form:"email" binding:"exists,email"`
   } `json:"company"`
   companyModel CompanyModel `json:"-"`
 }
@@ -28,7 +29,11 @@ func (self *CompanyModelValidator) Bind(c *gin.Context) error {
   self.companyModel.Name = self.Company.Name
   self.companyModel.Size = self.Company.Size
   self.companyModel.Mission = self.Company.Mission
-  self.companyModel.Hash = self.Company.Hash
+  self.companyModel.Email = self.Company.Email
+
+  if self.Company.Hash != common.JWTSecretString {
+    self.companyModel.setPassword(self.Company.Hash)
+  }
   return nil
 }
 
@@ -43,6 +48,7 @@ func NewCompanyModelValidatorFillWith(company CompanyModel) CompanyModelValidato
   out.Company.Size = company.Size
   out.Company.Mission = company.Mission
   out.Company.Hash = company.Hash
+  out.Company.Email = company.Email
 
   return out
 }

@@ -5,7 +5,7 @@ import (
   //"github.com/ckbball/quik/auth"
   "github.com/ckbball/quik/common"
   "github.com/ckbball/quik/companies"
-  "github.com/ckbball/quik/jobs"
+  //"github.com/ckbball/quik/jobs"
   "github.com/ckbball/quik/users"
   "github.com/gin-gonic/gin"
   _ "github.com/go-sql-driver/mysql"
@@ -14,6 +14,7 @@ import (
 
 func Migrate(db *gorm.DB) {
   users.AutoMigrate()
+  companies.AutoMigrate()
   //db.AutoMigrate(&companies.CompanyModel{})
   //db.AutoMigrate(&jobs.JobModel{})
 

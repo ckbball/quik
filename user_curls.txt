@@ -9,6 +9,8 @@ curl --request POST --header "Content-Type: application/json" --write-out "%{htt
 curl --request GET --header "Content-Type: application/json" --write-out "%{http_code}\n" http://localhost:8080/api/auth/
 
 // USER REGISTER
+curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"firstname": "hilde", "lastname": "gard", "email": "jill@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "senior", "title": "backend", "block": {}}}' http://localhost:8080/api/auth/
+
 curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"user": {"firstname": "Bobby", "lastname": "Bill", "email": "American@fly.com", "info": false, "pass": "please10", "status": "looking", "level": "senior", "title": "backend", "block": {}}}' http://localhost:8080/api/auth/
 
 // USER LOGIN
