@@ -8,10 +8,10 @@ import (
 
 type CompanyModelValidator struct {
   Company struct {
-    Name    string `json:"name" form:"name" binding:"exists,alphanum"`
+    Name    string `json:"name" form:"name" binding:"exists"`
     Size    int    `json:"size" form:"size" binding:"exists"`
-    Mission string `json:"mission" form:"mission" binding:"exists,alphanum"` //maybe give this a max
-    Pass    string `json:"password" form:"password" binding:"exists,min=8,max255"`
+    Mission string `json:"mission" form:"mission" binding:"exists"` //maybe give this a max
+    Pass    string `json:"password" form:"password" binding:"exists"`
     Email   string `json:"email" form:"email" binding:"exists,email"`
   } `json:"company"`
   companyModel CompanyModel `json:"-"`
