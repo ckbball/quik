@@ -1,2 +1,8 @@
 // COMPANY REGISTER
 curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"company": {"name": "Jika Corp", "size": 508, "email": "admin@jika.com", "mission": "To build software that improves developer velocity", "password": "hahajaja"}}' http://localhost:8080/api/companies/
+
+
+
+// COMPANY LOGIN
+curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"company": {"email": "admin@jika.com", "password": "hahajaja"}}' http://localhost:8080/api/companies/login
+

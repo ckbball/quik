@@ -68,6 +68,7 @@ func (self *LoginValidator) Bind(c *gin.Context) error {
   }
 
   self.companyModel.Email = self.Company.Email
+  self.companyModel.Pass = self.Company.Pass
   return nil
 }
 
