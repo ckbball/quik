@@ -224,7 +224,7 @@ func UserInfoUpdate(c *gin.Context) {
     fmt.Println("POST - /profile/:id : error in getting user, ", err)
   }
   fmt.Println("got user")
-  // check if user already has profile. if so return error. if not continue
+  // check if user already has profile. if so continue. if not return error
   if !user.HasInfo {
     c.JSON(http.StatusBadRequest, gin.H{"msg": "User doesn't have a profile"})
     return

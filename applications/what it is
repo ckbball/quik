@@ -1,1 +1,3 @@
 there will be a model that stores jobid, user_id, status, maybe others -- that represents 
+
+in application create func in router file have to check that the job exists.

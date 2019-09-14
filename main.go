@@ -35,18 +35,27 @@ func main() {
     // /login
     // /register
     users.UsersRegister(v1.Group("/auth"))
+    // login and register
     companies.CompaniesRegister(v1.Group("/companies"))
   }
 
   // basic authentication routes
 
   {
+    companyAuth := r.Group("/api")
+    companyAuth.Use(companies.AuthMiddleware(true))
+    {
+      // create, update, delete jobs
+      jobs.Register(companyAuth.Group("/jobs"))
+    }
+  }
+
+  {
     basicAuth := r.Group("/api")
     basicAuth.Use(users.AuthMiddleware(true))
     {
-      //jobs.Register(basicAuth.Group("/jobs"))
-      //companies.Register(basicAuth.Group("/companies"))
       users.Register(basicAuth.Group("/users"))
+      // user can create, update, delete an application to a job
       //applications.Register(basicAuth.Group("/applications"))
     }
   }
