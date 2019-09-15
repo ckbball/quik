@@ -22,24 +22,25 @@ func (self *JobModelValidator) Bind(c *gin.Context) error {
     return err
   }
 
+  fmt.Println("Check binding in jobs: ", self.Job)
+  fmt.Println()
+
   self.jobModel.CompanyID = self.Job.CompanyID
   self.jobModel.Responsibilities = self.Job.Responsibilities
   self.jobModel.Skills = self.Job.Skills
   return nil
 }
 
-func NewCompanyModelValidator() CompanyModelValidator {
-  validator := CompanyModelValidator{}
+func NewJobModelValidator() JobModelValidator {
+  validator := JobModelValidator{}
   return validator
 }
 
-func NewCompanyModelValidatorFillWith(company CompanyModel) CompanyModelValidator {
-  out := NewCompanyModelValidator()
-  out.Company.Name = company.Name
-  out.Company.Size = company.Size
-  out.Company.Mission = company.Mission
-  out.Company.Pass = company.Pass
-  out.Company.Email = company.Email
+func NewJobModelValidatorFillWith(job JobModel) JobModelValidator {
+  out := NewJobModelValidator()
+  out.Job.CompanyID = job.CompanyID
+  out.Job.Responsibilities = job.Responsibilities
+  out.Job.Skills = job.Skills
 
   return out
 }

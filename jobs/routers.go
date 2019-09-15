@@ -10,6 +10,18 @@ func Register(router *gin.RouterGroup) {
 
 func JobCreate(c *gin.Context) {
   // validate job object in http body
+  job := NewJobModelValidator()
+  if err := job.Bind(c); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
+    return
+  }
+
+  if err := SaveOne(&job.jobModel); err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+    return
+  }
+  serializer := JobSerializer{c, job.jobModel}
+  c.JSON(http.StatusCreated, gin.H{"job": serializer.Response()})
 
   // save job object into db
 
