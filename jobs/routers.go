@@ -1,6 +1,9 @@
 package jobs
 
-import ()
+import (
+  "github.com/ckbball/quik/common"
+  "github.com/gin-gonic/gin"
+)
 
 // Auth Routes
 func Register(router *gin.RouterGroup) {

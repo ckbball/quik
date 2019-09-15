@@ -1,12 +1,13 @@
 package jobs
 
 import (
-  "github.com/ckbball/quik/common"
+  //"github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
+  "time"
 )
 
 type JobSerializer struct {
-  c *gin.Context
+  c   *gin.Context
   job *JobModel
 }
 
@@ -21,10 +22,10 @@ type JobResponse struct {
 func (self *JobSerializer) Response() JobResponse {
   job := self.job
   out := JobResponse{
-    CompanyID:    job.CompanyID,
+    CompanyID:        job.CompanyID,
     Responsibilities: job.Responsibilities,
-    Skills:    job.Skills,
-    CreatedAt:  CreatedAt
+    Skills:           job.Skills,
+    CreatedAt:        CreatedAt,
   }
   return out
 }

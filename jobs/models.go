@@ -4,7 +4,7 @@ import (
   //"errors"
   //"fmt"
   "github.com/ckbball/quik/common"
-  //"github.com/jinzhu/gorm"
+  "github.com/jinzhu/gorm"
   //"golang.org/x/crypto/bcrypt"
 )
 
@@ -28,9 +28,9 @@ func SaveOne(data interface{}) error {
   return err
 }
 
-func FindOneCompany(condition interface{}) (CompanyModel, error) {
+func FindOneJob(condition interface{}) (JobModel, error) {
   db := common.GetDB()
-  var model CompanyModel
+  var model JobModel
   err := db.Where(condition).First(&model).Error
   return model, err
 }

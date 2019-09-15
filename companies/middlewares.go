@@ -1,7 +1,7 @@
 package companies
 
 import (
-  "fmt"
+  //"fmt"
   "github.com/ckbball/quik/common"
   "github.com/dgrijalva/jwt-go"
   "github.com/dgrijalva/jwt-go/request"
