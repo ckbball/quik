@@ -1,0 +1,9 @@
+// JOB CREATE
+curl --request POST --header "Content-Type: application/json" --header "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg2NjA0OTUsImlkIjoxfQ.iC4EqE7YAuzjPFXmiDioFSQZ5Ez9kxLemMgb5c2FyGY" --write-out "%{http_code}\n" --data '{"job": {"companyid": 1, "responsibilities": "design, prototype, and develop new features for our product;Help improve the architecture of our backend systems to scale to needed numbers", "skills": "rest apis;distributed systems;backend architecture"}}' http://localhost:8080/api/jobs
+
+Jika:
+token- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Njg2NjA0OTUsImlkIjoxfQ.iC4EqE7YAuzjPFXmiDioFSQZ5Ez9kxLemMgb5c2FyGY
+
+// COMPANY LOGIN
+curl --request POST --header "Content-Type: application/json" --write-out "%{http_code}\n" --data '{"company": {"email": "admin@jika.com", "password": "hahajaja"}}' http://localhost:8080/api/companies/login
+
