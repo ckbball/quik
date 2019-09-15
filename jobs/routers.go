@@ -3,6 +3,7 @@ package jobs
 import (
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
+  "net/http"
 )
 
 // Auth Routes
@@ -23,7 +24,7 @@ func JobCreate(c *gin.Context) {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
     return
   }
-  serializer := JobSerializer{c, job.jobModel}
+  serializer := JobSerializer{c, &job.jobModel}
   c.JSON(http.StatusCreated, gin.H{"job": serializer.Response()})
 
   // save job object into db

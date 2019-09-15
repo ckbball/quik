@@ -1,14 +1,14 @@
 package jobs
 
 import (
-  //"fmt"
+  "fmt"
   "github.com/ckbball/quik/common"
   "github.com/gin-gonic/gin"
 )
 
 type JobModelValidator struct {
   Job struct {
-    CompanyID        id     `json:"companyid" form:"companyid" binding:"exists"`
+    CompanyID        int    `json:"companyid" form:"companyid" binding:"exists"`
     Responsibilities string `json:"responsibilities" form:"responsibilities" binding:"exists"`
     Skills           string `json:"skills" form:"skills" binding:"exists"` //maybe give this a max
   } `json:"job"`

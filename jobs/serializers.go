@@ -25,7 +25,7 @@ func (self *JobSerializer) Response() JobResponse {
     CompanyID:        job.CompanyID,
     Responsibilities: job.Responsibilities,
     Skills:           job.Skills,
-    CreatedAt:        CreatedAt,
+    CreatedAt:        job.CreatedAt,
   }
   return out
 }
