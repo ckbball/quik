@@ -15,6 +15,7 @@ import (
 func Migrate(db *gorm.DB) {
   users.AutoMigrate()
   companies.AutoMigrate()
+  jobs.AutoMigrate()
   //db.AutoMigrate(&companies.CompanyModel{})
   //db.AutoMigrate(&jobs.JobModel{})
 
