@@ -87,8 +87,21 @@ func JobDelete(c *gin.Context) {
 // q = things to search for etc. python, backend, frontend, react
 // l = location, city, state,
 // c = company name
+// limit = limit number of jobs
+// offset = page offset
 func JobFilter(c *gin.Context) {
-  departurecity := c.Query("dc")
-  arrivalcity := c.Query("ac")
-  departat := c.Query("da")
+  // need serializer and models funcs
+  query := c.Query("q")
+  location := c.Query("l")
+  company := c.Query("c")
+  limit := c.Query("limit")
+  offset := c.Query("offset")
+
+  j, jobCount, err := FilteredJobs(query, location, company, limit, offset)
+  if err != nil {
+    c.JSON(http.StatusNotFound, common.NewError("job filter", errors.New("DB: Invalid params")))
+    return
+  }
+  serializer := JobsSerializer{c, j}
+  c.JSON(http.StatusOK, gin.H{"jobs": serializer.Response(), "jobsCount": jobCount})
 }

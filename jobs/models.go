@@ -47,3 +47,7 @@ func DeleteJobModel(condition interface{}) error {
   err := db.Where(condition).Delete(JobModel{}).Error
   return err
 }
+
+func FilteredJobs(query, location, company, limit, offset string) ([]JobModel, int, error) {
+
+}
