@@ -14,7 +14,7 @@ type JobModel struct {
   CompanyID        int    `gorm:"column:company_id"`
   Responsibilities string `gorm:"column:responsibilities"`
   Skills           string `gorm:"column:skills"`
-  Location         string `gorm:"colum:location"`
+  Location         string `gorm:"colum:location"` // city start as bay area only
 }
 
 func AutoMigrate() {
