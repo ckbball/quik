@@ -34,3 +34,9 @@ func FindOneJob(condition interface{}) (JobModel, error) {
   err := db.Where(condition).First(&model).Error
   return model, err
 }
+
+func (model *JobModel) Update(data interface{}) error {
+  db := common.GetDB()
+  err := db.Model(model).Update(data).Error
+  return err
+}
