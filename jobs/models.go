@@ -40,3 +40,9 @@ func (model *JobModel) Update(data interface{}) error {
   err := db.Model(model).Update(data).Error
   return err
 }
+
+func DeleteJobModel(condition interface{}) error {
+  db := common.GetDB()
+  err := db.Where(condition).Delete(JobModel{}).Error
+  return err
+}

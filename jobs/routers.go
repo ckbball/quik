@@ -59,27 +59,20 @@ func JobUpdate(c *gin.Context) {
   // send response
 }
 
-func JobUpdate(c *gin.Context) {
-  // validate job object in http body
-  job := NewJobModelValidator()
-
-  if err := job.Bind(c); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("validator", err))
-    return
-  }
-  // Check that job exists. if it does continue. if not return job doesn't exist
-  if db_job, err := FindOneJob(&JobModel{ID: job.ID}); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+func JobDelete(c *gin.Context) {
+  id := c.Param("id")
+  Id, err := strconv.Atoi(id)
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("job delete", errors.New("DB: Invalid Id")))
+    fmt.Println(err)
     return
   }
 
-  // save job object into db
-  if err := db_job.Update(job.jobModel); err != nil {
-    c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+  err := DeleteJobModel(&JobModel{ID: Id})
+  if err != nil {
+    c.JSON(http.StatusUnprocessableEntity, common.NewError("job delete", errors.New("DB: Invalid Id")))
+    fmt.Println(err)
     return
   }
-  // serialize job object into response format
-  serializer := JobSerializer{c, &job.jobModel}
-  c.JSON(http.StatusCreated, gin.H{"job": serializer.Response()})
-  // send response
+  c.JSON(http.StatusOK, gin.H{"job": "Delete success"})
 }

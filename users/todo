@@ -7,8 +7,8 @@ legend: X - completed
   Not Authorized routes:
   - User Registration ---------- X
   - User Login  ---------- X
-  - list of jobs -------------  U2
-  - view a specific job --------------  U2
+  - list of jobs -------------  Y
+  - view a specific job --------------  Y
   - Company Registration --------- X
   - Company Login ------------ X
 
@@ -21,8 +21,8 @@ legend: X - completed
 
   All as company who owns specific job
   - Create Job ------------ X
-  - Update Job ------------ Y
-  - Delete Job ------------ Y
+  - Update Job ------------ X
+  - Delete Job ------------ X
 
   Mixed
   - Create Application as a user --------------- U3
