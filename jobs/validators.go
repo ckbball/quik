@@ -9,6 +9,7 @@ import (
 type JobModelValidator struct {
   Job struct {
     CompanyID        int    `json:"companyid" form:"companyid" binding:"exists"`
+    ID               int    `json:"id" form:"id"`
     Responsibilities string `json:"responsibilities" form:"responsibilities" binding:"exists"`
     Skills           string `json:"skills" form:"skills" binding:"exists"` //maybe give this a max
   } `json:"job"`
@@ -28,6 +29,7 @@ func (self *JobModelValidator) Bind(c *gin.Context) error {
   self.jobModel.CompanyID = self.Job.CompanyID
   self.jobModel.Responsibilities = self.Job.Responsibilities
   self.jobModel.Skills = self.Job.Skills
+  self.jobModel.ID = self.Job.ID
   return nil
 }
 
@@ -41,6 +43,7 @@ func NewJobModelValidatorFillWith(job JobModel) JobModelValidator {
   out.Job.CompanyID = job.CompanyID
   out.Job.Responsibilities = job.Responsibilities
   out.Job.Skills = job.Skills
+  out.Job.ID = job.ID
 
   return out
 }
