@@ -131,14 +131,6 @@ func UserInfoGet(c *gin.Context) {
     return
   }
 
-  // check if fillprofile() in models.go worked properly
-  fmt.Println()
-  fmt.Println(profile.Roles)
-
-  fmt.Println()
-  fmt.Println("GET - /profiles/:id - testing to see if we got profile: ", profile)
-  fmt.Println()
-
   if err != nil {
     c.JSON(http.StatusUnprocessableEntity, common.NewError("profile get", errors.New("DB: Invalid Id")))
     fmt.Println(err)
@@ -147,9 +139,6 @@ func UserInfoGet(c *gin.Context) {
 
   UpdateContextProfile(c, profile)
   // test context profile
-  fmt.Println()
-  fmt.Println("CONTEXT PROFILE: ", c.MustGet("my_profile_model").(Profile))
-  fmt.Println()
 
   serializer := ProfileSerializer{c} // serializer struct for working with a user's profile.
   c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
