@@ -17,6 +17,7 @@ type JobResponse struct {
   Skills           string    `json:"skills"`
   CreatedAt        time.Time `json:"createdat"`
   ID               int       `json:"id"`
+  Location         string    `json:"location"`
   // need to add job here later or maybe a companyprofileresponse
 }
 
@@ -28,6 +29,7 @@ func (self *JobSerializer) Response() JobResponse {
     Skills:           job.Skills,
     CreatedAt:        job.CreatedAt,
     ID:               job.ID,
+    Location:         job.Location,
   }
   return out
 }
