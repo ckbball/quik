@@ -49,5 +49,20 @@ func DeleteJobModel(condition interface{}) error {
 }
 
 func FilteredJobs(query, location, company, limit, offset string) ([]JobModel, int, error) {
+  db := common.GetDB()
+  var models []JobModel
+  var count int
+
+  offset_int, err := strconv.Atoi(offset)
+  if err != nil {
+    offset_int = 0
+  }
+
+  limit_int, err := strconv.Atoi(limit)
+  if err != nil {
+    limit_int = 20
+  }
+
+  tx := db.Begin()
 
 }
