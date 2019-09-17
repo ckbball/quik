@@ -6,6 +6,12 @@ import (
   "net/http"
 )
 
+// No Auth Routes
+func JobsRegister(router *gin.RouterGroup) {
+  router.GET("", JobFilter)
+  router.GET("/:id", JobGetByID)
+}
+
 // Auth Routes
 func Register(router *gin.RouterGroup) {
   // create a job
@@ -75,4 +81,14 @@ func JobDelete(c *gin.Context) {
     return
   }
   c.JSON(http.StatusOK, gin.H{"job": "Delete success"})
+}
+
+// query params:
+// q = things to search for etc. python, backend, frontend, react
+// l = location, city, state,
+// c = company name
+func JobFilter(c *gin.Context) {
+  departurecity := c.Query("dc")
+  arrivalcity := c.Query("ac")
+  departat := c.Query("da")
 }
