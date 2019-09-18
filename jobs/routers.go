@@ -91,13 +91,11 @@ func JobDelete(c *gin.Context) {
 // offset = page offset
 func JobFilter(c *gin.Context) {
   // need serializer and models funcs
-  query := c.Query("q")
-  location := c.Query("l")
-  company := c.Query("c")
+  location := c.Query("location")
   limit := c.Query("limit")
   offset := c.Query("offset")
 
-  j, jobCount, err := FilteredJobs(query, location, company, limit, offset)
+  j, jobCount, err := FilteredJobs(location, limit, offset)
   if err != nil {
     c.JSON(http.StatusNotFound, common.NewError("job filter", errors.New("DB: Invalid params")))
     return

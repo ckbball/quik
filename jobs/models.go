@@ -1,20 +1,17 @@
 package jobs
 
 import (
-  //"errors"
-  //"fmt"
   "github.com/ckbball/quik/common"
   "github.com/jinzhu/gorm"
-  //"golang.org/x/crypto/bcrypt"
 )
 
 // unsure about this model
 type JobModel struct {
   gorm.Model
   CompanyID        int    `gorm:"column:company_id"`
-  Responsibilities string `gorm:"column:responsibilities"`
-  Skills           string `gorm:"column:skills"`
-  Location         string `gorm:"colum:location"` // city start as bay area only
+  Responsibilities string `gorm:"column:responsibilities"`  // sentences
+  Skills           string `gorm:"column:skills"`            // single things, golang, react, python,rest api, etc
+  Location         string `gorm:"colum:location;index:loc"` // city start as bay area only
 }
 
 func AutoMigrate() {
@@ -48,7 +45,7 @@ func DeleteJobModel(condition interface{}) error {
   return err
 }
 
-func FilteredJobs(query, location, company, limit, offset string) ([]JobModel, int, error) {
+func FilteredJobs(location, limit, offset string) ([]JobModel, int, error) {
   db := common.GetDB()
   var models []JobModel
   var count int
@@ -64,5 +61,8 @@ func FilteredJobs(query, location, company, limit, offset string) ([]JobModel, i
   }
 
   tx := db.Begin()
+  tx.Where("location = ?", location).Order("ID desc").Offset(offset_int).Limit(limit_int).Find(&models)
 
+  err = tx.Commit().Error
+  return models, count, err
 }
